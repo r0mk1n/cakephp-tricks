@@ -17,6 +17,8 @@ class AppController extends Controller {
 
     var $auth_url       = '/users/login';
 
+    var $access         = array();  
+
     function beforeFilter() {
         if ( $this->Session->check( "User" ) ) {
             $this->user_info = $this->Session->read( "User" );

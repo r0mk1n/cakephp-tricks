@@ -20,6 +20,27 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+/*************************************************************************************************
+ * Custom settings
+ */
+
+// SMTP
+
+    Configure::write( 'smtp_type', 'tls' );
+    Configure::write( 'smtp_timeout', 60 );
+    Configure::write( 'smtp_host', 'smtp.gmail.com' );
+    Configure::write( 'smtp_port', 465 );
+    Configure::write( 'smtp_user', '' );
+    Configure::write( 'smtp_password', '' );
+    Configure::write( 'smtp_encryption', 'ENC_SSL' );
+    Configure::write( 'smtp_mail_from_name', 'noreply' );
+    Configure::write( 'smtp_mail_from_addr', '' );
+
+// globsl
+
+    Configure::write( 'site_name', 'Tricks.dev' );
+
+
 /**
  * CakePHP Debug Level:
  *

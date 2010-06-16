@@ -14,7 +14,7 @@
 class UsersController extends AppController {
     var $name           = 'Users';
     var $uses           = array( 'User' );
-    var $components     = array( 'Codelib', 'SwiftMailer' );
+    var $components     = array( 'SwiftMailer' );
 
 /**
  * Registration method
@@ -31,7 +31,7 @@ class UsersController extends AppController {
             if ( $this->User->validates() ) {
                 $this->data['User']['pass'] = md5( $this->data['User']['password'] );
                 $this->data['User']['enabled'] = 'yes';
-                $this->data['User']['code'] = $this->Codelib->randomKey( 32 );
+                $this->data['User']['code'] = md5( date( 'Ymdhisu' ) );
                 $result = $this->User->save( $this->data );
                 if ( $result ) {
 // sending email
@@ -49,7 +49,7 @@ class UsersController extends AppController {
                     $this->set( 'user_data', $this->data );
 
                     try {
-                        if ( !$this->SwiftMailer->send( 'registration_confirm', "[" . Configure::read('site_name') . " ]Please activate your new account") ) {
+                        if ( !$this->SwiftMailer->send( 'registration_confirm', "[" . Configure::read('site_name') . "] Please activate your new account") ) {
                             $this->Session->setFlash( 'System can not sending confirmation email. Please check your email address.', 'default', array(), 'error' );
                             $this->User->delete( $this->User->id );
                         } else {
@@ -90,7 +90,7 @@ class UsersController extends AppController {
                             return;
                         }
                         if ( $user_info['User']['activated'] == 'no' ) {
-                            $this->Session->setFlash( 'Your account is not yet confirmed. Please check your email box for activation instructions', 'default', array(), 'info' );
+                            $this->Session->setFlash( 'Your account is not yet activated. Please check your email box for activation instructions', 'default', array(), 'info' );
                         }
                         $this->Session->write( 'User', $user_info['User'] );
                         $this->Session->setFlash( 'You are successfully logged in.', 'default', array(), 'success' );
@@ -115,7 +115,7 @@ class UsersController extends AppController {
     function logout() {
         if ( $this->Session->check( 'User' ) ) {
             $this->Session->delete( 'User' );
-            $this->Session->setFlash( 'You are successfully logged in', 'default', array(), 'success' );            
+            $this->Session->setFlash( 'You are successfully logout from your account.', 'default', array(), 'success' );            
         } else {
             $this->Session->setFlash( 'You are not logged out from your account.', 'default', array(), 'error' );
         }

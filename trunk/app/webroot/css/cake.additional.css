@@ -1,0 +1,19 @@
+#container { margin:0px auto; width:990px; }
+#header #userpanel { float:right; }
+#header #userpanel a { color: #fff; }
+#content { -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius:10px; }
+button { padding: 10px; font-size: 1.2em; float:right}
+h3 {
+    font: 20px/22px Arial, Helvetica, sans-serif;
+    border-bottom: 1px solid #999;
+    padding:5px;
+    color:#000;
+    margin:0px 0px 20px;
+    font-weight:bold;
+}
+
+.form-error {border:1px solid #f00 !important;}
+.clear {clear:both; height:0px;}
+.clear-5 {clear:both; height:5px;}
+.bline {border-bottom:1px solid #999}
+
