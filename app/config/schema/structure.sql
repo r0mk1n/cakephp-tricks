@@ -94,7 +94,7 @@ CREATE TABLE `users` (
   `email` varchar(50) default '',
   `pass` varchar(50) default '',
   `enabled` enum('yes','no') default 'yes',
-  `acivated` enum('yes','no') default 'no',
+  `activated` enum('yes','no') default 'no',
   `ac_code` varchar(32) default '',
   `city` varchar(50) default '',
   `state` varchar(2) default '',
