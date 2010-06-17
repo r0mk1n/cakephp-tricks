@@ -3,7 +3,7 @@
 #header #userpanel { float:right; }
 #header #userpanel a { color: #fff; }
 #content { -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius:10px; min-height:500px;}
-button { padding: 10px; font-size: 1.2em; float:right}
+button { padding: 8px; font-size: 1.0em; }
 h3 {
     font: 20px/22px Arial, Helvetica, sans-serif;
     border-bottom: 1px solid #999;
@@ -15,6 +15,7 @@ h3 {
 form {margin:0;width:50%;padding:0}
 form div {margin-bottom:10px;padding: 0}
 input, textarea, select {font-size:100%; padding:5px;}
+.footer-row {margin:10px 0px; clear:both;vertical-align:middle;text-align:right;background-color:#f0f0f0;padding:10px 5px}
 span.active { padding:2px 8px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius:5px; background-color: #e0e0e0; color: #000 }
 .form-error {border:1px solid #f00 !important;}
 .clear {clear:both; height:0px;}

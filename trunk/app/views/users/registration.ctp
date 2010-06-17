@@ -4,6 +4,6 @@
 <?= $form->input( 'User.password', array( 'label'=>'Password', 'type'=>'password' ) ); ?>
 <?= $form->input( 'User.repassword', array( 'label'=>'Repeat password', 'type'=>'password' ) ); ?>
     <div class="footer-row">
-        <button type="submit" class="but large blue awesome right">Create my account</button>
+        <button type="submit">Create my account</button>
     </div>
 <?= $form->end(); ?>

@@ -4,8 +4,8 @@
 <?= $form->input( 'Task.description', array( 'label'=>'Description', 'rows'=>3 ) ); ?>
 <?= $form->input( 'Task.url', array( 'label'=>'URL' ) ); ?>
 <?= $form->input( 'Task.exp_date', array( 'label'=>'Date', 'type'=>'datetime', 'separator'=>' ' ) ); ?>
-<?= $form->input( 'Task.location', array( 'label'=>'Location', 'after'=>'<a href="javascript:void(0)" style="float:right">add location</a>' ) ); ?>
-<?= $form->input( 'Task.tags', array( 'label'=>'Tags' ) ); ?>
+<?= $form->input( 'Task.location', array( 'label'=>'Location', 'style'=>'float:left;width:70%', 'after'=>'<a href="javascript:void(0)" style="float:left;margin:0px 10px ">add location</a>' ) ); ?>
+<br class="clear" />
 <div class="footer-row">
     <a href="/tasks">Cancel</a>
     <button type="submit">Add task</button>
