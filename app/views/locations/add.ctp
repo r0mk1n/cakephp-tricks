@@ -5,6 +5,8 @@
 <?= $form->input( 'Location.city', array( 'label'=>'City' ) ); ?>
 <?= $form->input( 'Location.state', array( 'label'=>'State' ) ); ?>
 <?= $form->input( 'Location.zip', array( 'label'=>'Zip' ) ); ?>
-<a href="/locations">cancel</a>
-<button type="submit">Add location</button>
+<div class="footer-row">
+    <a href="/locations">cancel</a>
+    <button type="submit">Add location</button>
+</div>    
 <?= $form->end() ?>
