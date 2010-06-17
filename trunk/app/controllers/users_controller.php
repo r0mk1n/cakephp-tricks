@@ -94,7 +94,7 @@ class UsersController extends AppController {
                         }
                         $this->Session->write( 'User', $user_info['User'] );
                         $this->Session->setFlash( 'You are successfully logged in.', 'default', array(), 'success' );
-                        $this->redirect( '/' );
+                        $this->redirect( '/tasks' );
                     } else {
                         $this->User->invalidate( 'password', 'Wrong password entered.' );
                     }

@@ -12,7 +12,7 @@ class AppModel extends Model {
 
 	function __construct( $id = false, $table = null, $ds = null ) {
 		parent::__construct( $id, $table, $ds );
-		$this->query( "set names 'utf8'" );
+		//$this->query( "set names 'utf8'" );
 	}
 
 	function setValidation( $setName ) {
