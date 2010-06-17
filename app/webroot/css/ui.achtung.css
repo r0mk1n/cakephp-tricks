@@ -43,7 +43,6 @@
 	margin-right: .5em;
     float: left;
 	zoom: 1;
-z-index:55;
 }
 
 .achtung .ui-icon.achtung-close-button {
@@ -54,7 +53,6 @@ z-index:55;
     right: -8px;
     cursor: pointer;
     background-image: url(/img/ui/ui-icons_ffffff_256x240.png);
-z-index:55;
 }
 
 .achtung .ui-icon.achtung-close-button-hover {

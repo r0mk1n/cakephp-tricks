@@ -359,7 +359,7 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->controllerPath = 'view_task_comments';
 
 		$this->Task->expectAt(0, 'createFile', array(
-			TMP . 'view_task_comments' . DS . 'view.ctp',
+			TMP . 'view_task_comments' . DS . 'index.ctp',
 			new PatternExpectation('/View Task Articles/')
 		));
 		$this->Task->bake('view', true);
@@ -385,7 +385,7 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->controllerPath = 'view_task_comments';
 		$this->Task->plugin = 'TestTest';
 
-		$path = APP . 'plugins' . DS . 'test_test' . DS . 'views' . DS . 'view_task_comments' . DS  . 'view.ctp';
+		$path = APP . 'plugins' . DS . 'test_test' . DS . 'views' . DS . 'view_task_comments' . DS  . 'index.ctp';
 		$this->Task->expectAt(0, 'createFile', array($path, '*'));
 		$this->Task->bake('view', true);
 	}
@@ -401,7 +401,7 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->controllerPath = 'view_task_comments';
 
 		$this->Task->expectAt(0, 'createFile', array(
-			TMP . 'view_task_comments' . DS . 'view.ctp',
+			TMP . 'view_task_comments' . DS . 'index.ctp',
 			new PatternExpectation('/View Task Comments/')
 		));
 		$this->Task->expectAt(1, 'createFile', array(
@@ -483,7 +483,7 @@ class ViewTaskTest extends CakeTestCase {
 		$this->Task->args[1] = 'view';
 
 		$this->Task->expectCallCount('createFile', 1);
-		$this->Task->expectAt(0, 'createFile', array(TMP . 'view_task_comments' . DS . 'view.ctp', '*'));
+		$this->Task->expectAt(0, 'createFile', array(TMP . 'view_task_comments' . DS . 'index.ctp', '*'));
 		$this->Task->execute();
 	}
 
@@ -571,7 +571,7 @@ class ViewTaskTest extends CakeTestCase {
 			new PatternExpectation('/ViewTaskComment/')
 		));
 		$this->Task->expectAt(1, 'createFile', array(
-			TMP . 'view_task_comments' . DS . 'view.ctp',
+			TMP . 'view_task_comments' . DS . 'index.ctp',
 			new PatternExpectation('/ViewTaskComment/')
 		));
 		$this->Task->expectAt(2, 'createFile', array(

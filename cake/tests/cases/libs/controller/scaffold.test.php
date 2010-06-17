@@ -325,7 +325,7 @@ class ScaffoldViewTest extends CakeTestCase {
 		$this->assertEqual($result, $expected);
 
 		$result = $ScaffoldView->testGetFilename('view');
-		$expected = TEST_CAKE_CORE_INCLUDE_PATH . 'libs' . DS . 'view' . DS . 'scaffolds' . DS . 'view.ctp';
+		$expected = TEST_CAKE_CORE_INCLUDE_PATH . 'libs' . DS . 'view' . DS . 'scaffolds' . DS . 'index.ctp';
 		$this->assertEqual($result, $expected);
 
 		$result = $ScaffoldView->testGetFilename('admin_index');
@@ -333,7 +333,7 @@ class ScaffoldViewTest extends CakeTestCase {
 		$this->assertEqual($result, $expected);
 
 		$result = $ScaffoldView->testGetFilename('admin_view');
-		$expected = TEST_CAKE_CORE_INCLUDE_PATH . 'libs' . DS . 'view' . DS . 'scaffolds' . DS . 'view.ctp';
+		$expected = TEST_CAKE_CORE_INCLUDE_PATH . 'libs' . DS . 'view' . DS . 'scaffolds' . DS . 'index.ctp';
 		$this->assertEqual($result, $expected);
 
 		$result = $ScaffoldView->testGetFilename('admin_edit');

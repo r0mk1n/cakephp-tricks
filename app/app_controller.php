@@ -34,7 +34,6 @@ class AppController extends Controller {
         	$this->Session->write( 'before_login_url', $this->here );
         	$this->redirect( $this->auth_url );
         }
-
     }
 
 /**
@@ -65,6 +64,4 @@ class AppController extends Controller {
         // default - no access control,
         return  true;
     }
-
-
 }
