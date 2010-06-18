@@ -15,6 +15,24 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`tricks_cake` /*!40100 DEFAULT CHARACTER
 
 USE `tricks_cake`;
 
+/*Table structure for table `events` */
+
+DROP TABLE IF EXISTS `events`;
+
+CREATE TABLE `events` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `user_id` int(10) unsigned default NULL,
+  `location_id` int(10) unsigned default NULL,
+  `exp_date` datetime default NULL,
+  `title` varchar(255) default '',
+  `description` text,
+  `url` varchar(255) default '',
+  `complete` enum('yes','no') default NULL,
+  `created` datetime default NULL,
+  `modified` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 /*Table structure for table `locations` */
 
 DROP TABLE IF EXISTS `locations`;
@@ -33,8 +51,6 @@ CREATE TABLE `locations` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `locations` */
-
 /*Table structure for table `tags` */
 
 DROP TABLE IF EXISTS `tags`;
@@ -47,43 +63,19 @@ CREATE TABLE `tags` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Data for the table `tags` */
+/*Table structure for table `tags_to_events` */
 
-/*Table structure for table `tags_to_tasks` */
+DROP TABLE IF EXISTS `tags_to_events`;
 
-DROP TABLE IF EXISTS `tags_to_tasks`;
-
-CREATE TABLE `tags_to_tasks` (
+CREATE TABLE `tags_to_events` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `task_id` int(10) unsigned default NULL,
+  `event_id` int(10) unsigned default NULL,
   `user_id` int(10) unsigned default NULL,
   `tag_id` int(10) unsigned default NULL,
   `created` datetime default NULL,
   `modified` datetime default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-/*Data for the table `tags_to_tasks` */
-
-/*Table structure for table `tasks` */
-
-DROP TABLE IF EXISTS `tasks`;
-
-CREATE TABLE `tasks` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `user_id` int(10) unsigned default NULL,
-  `location_id` int(10) unsigned default NULL,
-  `exp_date` datetime default NULL,
-  `title` varchar(255) default '',
-  `description` text,
-  `url` varchar(255) default '',
-  `complete` enum('yes','no') default NULL,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-/*Data for the table `tasks` */
 
 /*Table structure for table `users` */
 
@@ -105,9 +97,7 @@ CREATE TABLE `users` (
   `created` datetime default NULL,
   `modified` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-/*Data for the table `users` */
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

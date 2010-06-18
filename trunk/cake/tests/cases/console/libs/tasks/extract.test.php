@@ -15,7 +15,7 @@
  * @copyright     Copyright 2006-2010, Cake Software Foundation, Inc.
  * @link          http://cakephp.org CakePHP Project
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  * @since         CakePHP v 1.2.0.7726
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -33,7 +33,7 @@ if (!class_exists('ShellDispatcher')) {
 	ob_end_clean();
 }
 
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'extract.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'extract.php';
 
 
 Mock::generatePartial(
@@ -45,7 +45,7 @@ Mock::generatePartial(
  * ExtractTaskTest class
  *
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  */
 class ExtractTaskTest extends CakeTestCase {
 

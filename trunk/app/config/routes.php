@@ -27,10 +27,6 @@
  * to use (in this case, /app/views/pages/home.ctp)...
  */
 	Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-
-    Router::connect('/tasks/view/:mode', array('controller' => 'tasks', 'action' => 'view'), array( 'pass'=>array( 'mode' ) ));
-
-
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */

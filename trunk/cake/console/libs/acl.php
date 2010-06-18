@@ -53,7 +53,7 @@ class AclShell extends Shell {
 	var $connection = 'default';
 
 /**
- * Contains tasks to load and instantiate
+ * Contains events to load and instantiate
  *
  * @var array
  * @access public

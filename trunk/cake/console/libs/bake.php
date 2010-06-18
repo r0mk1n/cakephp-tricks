@@ -32,7 +32,7 @@
 class BakeShell extends Shell {
 
 /**
- * Contains tasks to load and instantiate
+ * Contains events to load and instantiate
  *
  * @var array
  * @access public

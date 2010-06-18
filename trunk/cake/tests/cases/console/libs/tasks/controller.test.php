@@ -13,7 +13,7 @@
  * @copyright     Copyright 2005-2009, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -32,11 +32,11 @@ if (!class_exists('ShellDispatcher')) {
 	ob_end_clean();
 }
 
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'project.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'controller.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'model.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'template.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'test.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'project.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'controller.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'model.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'template.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'test.php';
 
 Mock::generatePartial(
 	'ShellDispatcher', 'TestControllerTaskMockShellDispatcher',
@@ -80,7 +80,7 @@ if (!$imported) {
  * ControllerTaskTest class
  *
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  */
 class ControllerTaskTest extends CakeTestCase {
 

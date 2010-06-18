@@ -108,7 +108,7 @@ class Shell extends Object {
 	var $alias = null;
 
 /**
- * Contains tasks to load and instantiate
+ * Contains events to load and instantiate
  *
  * @var array
  * @access public
@@ -116,7 +116,7 @@ class Shell extends Object {
 	var $tasks = array();
 
 /**
- * Contains the loaded tasks
+ * Contains the loaded events
  *
  * @var array
  * @access public
@@ -172,7 +172,7 @@ class Shell extends Object {
 /**
  * Initializes the Shell
  * acts as constructor for subclasses
- * allows configuration of tasks prior to shell execution
+ * allows configuration of events prior to shell execution
  *
  * @access public
  */
@@ -265,7 +265,7 @@ class Shell extends Object {
 	}
 
 /**
- * Loads tasks defined in var $tasks
+ * Loads events defined in var $events
  *
  * @return bool
  * @access public
@@ -286,7 +286,7 @@ class Shell extends Object {
 
 			if (!class_exists($taskClass)) {
 				foreach ($this->Dispatch->shellPaths as $path) {
-					$taskPath = $path . 'tasks' . DS . $task . '.php';
+					$taskPath = $path . 'events' . DS . $task . '.php';
 					if (file_exists($taskPath)) {
 						require_once $taskPath;
 						break;

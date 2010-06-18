@@ -1,4 +1,3 @@
-<h3>New user registration</h3>
 <?= $form->create( 'User', array('url' => '/users/registration', 'method' => 'POST', 'class'=>'data-form')); ?>
 <?= $form->input( 'User.email', array( 'label'=>'Email' ) ); ?>
 <?= $form->input( 'User.password', array( 'label'=>'Password', 'type'=>'password' ) ); ?>

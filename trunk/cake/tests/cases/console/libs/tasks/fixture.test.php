@@ -13,7 +13,7 @@
  * @copyright     Copyright 2005-2009, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -30,8 +30,8 @@ if (!class_exists('ShellDispatcher')) {
 	ob_end_clean();
 }
 
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'template.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'fixture.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'template.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'fixture.php';
 
 Mock::generatePartial(
 	'ShellDispatcher', 'TestFixtureTaskMockShellDispatcher',
@@ -52,7 +52,7 @@ Mock::generatePartial(
  * FixtureTaskTest class
  *
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  */
 class FixtureTaskTest extends CakeTestCase {
 

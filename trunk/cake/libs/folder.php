@@ -28,7 +28,7 @@ if (!class_exists('Object')) {
 
 /**
  * Folder structure browser, lists folders and files.
- * Provides an Object interface for Common directory related tasks.
+ * Provides an Object interface for Common directory related events.
  *
  * @package       cake
  * @subpackage    cake.cake.libs

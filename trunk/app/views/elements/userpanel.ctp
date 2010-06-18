@@ -1,6 +1,6 @@
 <?php
     $logged_in_links = array(
-        'tasks'         => '/tasks',
+        'events'         => '/events',
         'locations'     => '/locations',
         'profile'       => '/users/profile',
         'logout'        => '/users/logout'

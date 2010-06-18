@@ -15,7 +15,7 @@
  * @copyright     Copyright 2006-2010, Cake Software Foundation, Inc.
  * @link          http://cakephp.org CakePHP Project
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  * @since         CakePHP v 1.2.6
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -32,9 +32,9 @@ if (!class_exists('ShellDispatcher')) {
 	ob_end_clean();
 }
 
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'model.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'fixture.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'template.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'model.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'fixture.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'template.php';
 
 Mock::generatePartial(
 	'ShellDispatcher', 'TestModelTaskMockShellDispatcher',
@@ -57,7 +57,7 @@ Mock::generate(
  * ModelTaskTest class
  *
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  */
 class ModelTaskTest extends CakeTestCase {
 
