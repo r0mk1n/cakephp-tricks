@@ -13,7 +13,7 @@
  * @copyright     Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       cake
- * @subpackage    cake.cake.console.libs.tasks
+ * @subpackage    cake.cake.console.libs.events
  * @since         CakePHP(tm) v 1.2
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -22,7 +22,7 @@
  * Task class for creating a plugin
  *
  * @package       cake
- * @subpackage    cake.cake.console.libs.tasks
+ * @subpackage    cake.cake.console.libs.events
  */
 class PluginTask extends Shell {
 
@@ -50,7 +50,7 @@ class PluginTask extends Shell {
 	}
 
 /**
- * Execution method always used for tasks
+ * Execution method always used for events
  *
  * @return void
  */
@@ -152,7 +152,7 @@ class PluginTask extends Shell {
 				'tests' . DS . 'groups',
 				'tests' . DS . 'fixtures',
 				'vendors',
-				'vendors' . DS . 'shells' . DS . 'tasks',
+				'vendors' . DS . 'shells' . DS . 'events',
 				'webroot'
 			);
 

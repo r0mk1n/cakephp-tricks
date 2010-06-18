@@ -22,7 +22,7 @@
  * Task class for creating new project apps and plugins
  *
  * @package       cake
- * @subpackage    cake.cake.console.libs.tasks
+ * @subpackage    cake.cake.console.libs.events
  */
 class ProjectTask extends Shell {
 

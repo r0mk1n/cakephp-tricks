@@ -45,7 +45,7 @@ class BakeGroupTest extends TestSuite {
  * @return void
  */
 	function BakeGroupTest() {
-		$path = CORE_TEST_CASES . DS . 'console' . DS . 'libs' . DS . 'tasks' . DS;
+		$path = CORE_TEST_CASES . DS . 'console' . DS . 'libs' . DS . 'events' . DS;
 		TestManager::addTestFile($this, CORE_TEST_CASES . DS . 'console' . DS . 'libs' . DS . 'bake');
 		TestManager::addTestFile($this, $path . 'controller');
 		TestManager::addTestFile($this, $path . 'model');

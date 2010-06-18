@@ -15,7 +15,7 @@
  * @copyright     Copyright 2006-2009, Cake Software Foundation, Inc.
  * @link          http://cakephp.org CakePHP Project
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  * @since         CakePHP v 1.3.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -32,8 +32,8 @@ if (!class_exists('ShellDispatcher')) {
 	ob_end_clean();
 }
 
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'plugin.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'model.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'plugin.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'model.php';
 
 Mock::generatePartial(
 	'ShellDispatcher', 'TestPluginTaskMockShellDispatcher',
@@ -50,7 +50,7 @@ Mock::generate('ModelTask', 'PluginTestMockModelTask');
  * PluginTaskPlugin class
  *
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  */
 class PluginTaskTest extends CakeTestCase {
 
@@ -173,8 +173,8 @@ class PluginTaskTest extends CakeTestCase {
 		$this->assertTrue(is_dir($path . DS . 'vendors'), 'No vendors dir %s');
 	
 		$this->assertTrue(is_dir($path . DS . 'vendors' . DS . 'shells'), 'No vendors shells dir %s');
-		$this->assertTrue(is_dir($path . DS . 'vendors' . DS . 'shells' . DS . 'tasks'), 'No vendors shells tasks dir %s');
-		$this->assertTrue(file_exists($path . DS . 'vendors' . DS . 'shells' . DS . 'tasks' . DS . 'empty'), 'No empty file %s');
+		$this->assertTrue(is_dir($path . DS . 'vendors' . DS . 'shells' . DS . 'events'), 'No vendors shells events dir %s');
+		$this->assertTrue(file_exists($path . DS . 'vendors' . DS . 'shells' . DS . 'events' . DS . 'empty'), 'No empty file %s');
 		$this->assertTrue(is_dir($path . DS . 'libs'), 'No libs dir %s');
 		$this->assertTrue(is_dir($path . DS . 'webroot'), 'No webroot dir %s');
 

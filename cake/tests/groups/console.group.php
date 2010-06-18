@@ -50,7 +50,7 @@ class ConsoleGroupTest extends TestSuite {
 		TestManager::addTestFile($this, CORE_TEST_CASES . DS . 'console' . DS . 'libs' . DS . 'schema');
 		TestManager::addTestFile($this, CORE_TEST_CASES . DS . 'console' . DS . 'libs' . DS . 'shell');
 
-		$path = CORE_TEST_CASES . DS . 'console' . DS . 'libs' . DS . 'tasks' . DS;
+		$path = CORE_TEST_CASES . DS . 'console' . DS . 'libs' . DS . 'events' . DS;
 		
 		TestManager::addTestFile($this, $path . 'controller');
 		TestManager::addTestFile($this, $path . 'db_config');

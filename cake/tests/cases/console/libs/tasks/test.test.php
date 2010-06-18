@@ -15,7 +15,7 @@
  * @copyright     Copyright 2006-2010, Cake Software Foundation, Inc.
  * @link          http://cakephp.org CakePHP Project
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  * @since         CakePHP v 1.2.0.7726
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -34,8 +34,8 @@ if (!class_exists('ShellDispatcher')) {
 	ob_end_clean();
 }
 
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'test.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'template.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'test.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'template.php';
 
 
 Mock::generatePartial(
@@ -51,7 +51,7 @@ Mock::generatePartial(
  * Test Article model
  *
  * @package cake
- * @subpackage cake.tests.cases.console.libs.tasks
+ * @subpackage cake.tests.cases.console.libs.events
  */
 class TestTaskArticle extends Model {
 
@@ -131,7 +131,7 @@ class TestTaskArticle extends Model {
  * Tag Testing Model
  *
  * @package cake
- * @subpackage cake.tests.cases.console.libs.tasks
+ * @subpackage cake.tests.cases.console.libs.events
  */
 class TestTaskTag extends Model {
 
@@ -171,7 +171,7 @@ class TestTaskTag extends Model {
  * Simulated plugin
  *
  * @package cake
- * @subpackage cake.tests.cases.console.libs.tasks
+ * @subpackage cake.tests.cases.console.libs.events
  */
 class TestTaskAppModel extends Model {
 }
@@ -180,7 +180,7 @@ class TestTaskAppModel extends Model {
  * Testing AppMode (TaskComment)
  *
  * @package cake
- * @subpackage cake.tests.cases.console.libs.tasks
+ * @subpackage cake.tests.cases.console.libs.events
  */
 class TestTaskComment extends TestTaskAppModel {
 
@@ -218,7 +218,7 @@ class TestTaskComment extends TestTaskAppModel {
  * Test Task Comments Controller
  *
  * @package cake
- * @subpackage cake.tests.cases.console.libs.tasks
+ * @subpackage cake.tests.cases.console.libs.events
  */
 class TestTaskCommentsController extends Controller {
 
@@ -243,7 +243,7 @@ class TestTaskCommentsController extends Controller {
  * TestTaskTest class
  *
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  */
 class TestTaskTest extends CakeTestCase {
 

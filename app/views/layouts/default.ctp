@@ -3,12 +3,12 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php __('CakePHP: the rapid development php framework:'); ?>
+		<?php __('CakePHP:'); ?>
 		<?= $title_for_layout; ?>
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-		echo $this->Html->css( array( 'cake.generic', 'cake.additional', 'ui.achtung' ) );
+		echo $this->Html->css( array( 'cake.generic', 'cake.additional', 'ui.achtung', 'jquery-ui-1.8.2.custom' ) );
 		echo $scripts_for_layout;
 	?>
     <?php echo $html->script(array('jquery-1.4.2.min', 'ui.achtung-min', 'jquery-ui-1.8.2.custom.min', 'tricks')); ?>
@@ -22,6 +22,7 @@
 
 		</div>
 		<div id="content">
+            <h3><?php echo $title_for_layout; ?></h3>
 			<?php echo $content_for_layout; ?>
 		</div>
 		<div id="footer">

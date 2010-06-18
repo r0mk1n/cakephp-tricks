@@ -19,13 +19,15 @@ class UsersController extends AppController {
 /**
  * Registration method
  * @param POST
- * 
+ *
  * @return void
  */
 
     function registration() {
+        $this->set( 'title_for_layout', 'New user registration' );
         if ( !empty( $this->data ) ) {
             $this->data = Sanitize::clean( $this->data );
+            $this->User->create();
             $this->User->setValidation( 'registration' );
             $this->User->set( $this->data );
             if ( $this->User->validates() ) {
@@ -76,6 +78,7 @@ class UsersController extends AppController {
  * @return void
  */
     function login() {
+        $this->set( 'title_for_layout', 'Login' );
         if ( !empty( $this->data ) ) {
             $this->data = Sanitize::clean( $this->data );
             $this->User->setValidation( 'login' );
@@ -94,12 +97,18 @@ class UsersController extends AppController {
                         }
                         $this->Session->write( 'User', $user_info['User'] );
                         $this->Session->setFlash( 'You are successfully logged in.', 'default', array(), 'success' );
-                        $this->redirect( '/tasks' );
+                        if ( $this->Session->check( 'before_login_url' ) ) {
+                            $url = $this->Session->read( 'before_login_url' );
+                            $this->Session->delete( 'before_login_url' );
+                            $this->redirect( $url );
+                        } else {
+                            $this->redirect( '/events' );
+                        }
                     } else {
                         $this->User->invalidate( 'password', 'Wrong password entered.' );
                     }
                 } else {
-                    $this->User->invalidate( 'email', 'User with entered email address not found.' );                    
+                    $this->User->invalidate( 'email', 'User with entered email address not found.' );
                 }
             }
         }
@@ -115,7 +124,7 @@ class UsersController extends AppController {
     function logout() {
         if ( $this->Session->check( 'User' ) ) {
             $this->Session->delete( 'User' );
-            $this->Session->setFlash( 'You are successfully logout from your account.', 'default', array(), 'success' );            
+            $this->Session->setFlash( 'You are successfully logout from your account.', 'default', array(), 'success' );
         } else {
             $this->Session->setFlash( 'You are not logged out from your account.', 'default', array(), 'error' );
         }
@@ -131,13 +140,13 @@ class UsersController extends AppController {
     }
 
     function profile() {
-        
+
     }
 
     function info( $user = null ) {
         $user = Sanitize::clean( $user );
 
-        
+
     }
 
 }

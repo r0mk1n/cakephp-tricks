@@ -345,7 +345,7 @@ class FileEngineTest extends CakeTestCase {
 			'C:\dev\prj2\sites\main_site\vendors' => array(
 				0 => 'C:\dev\prj2\sites\main_site\vendors', 1 => 'C:\dev\prj2\sites\main_site\vendors\shells',
 				2 => 'C:\dev\prj2\sites\main_site\vendors\shells\templates', 3 => 'C:\dev\prj2\sites\main_site\vendors\shells\templates\cdc_project',
-				4 => 'C:\dev\prj2\sites\main_site\vendors\shells\tasks', 5 => 'C:\dev\prj2\sites\main_site\vendors\js',
+				4 => 'C:\dev\prj2\sites\main_site\vendors\shells\events', 5 => 'C:\dev\prj2\sites\main_site\vendors\js',
 				6 => 'C:\dev\prj2\sites\main_site\vendors\css'),
 			'C:\dev\prj2\sites\vendors' => array(
 				0 => 'C:\dev\prj2\sites\vendors', 1 => 'C:\dev\prj2\sites\vendors\simpletest',

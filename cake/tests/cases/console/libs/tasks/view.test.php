@@ -15,7 +15,7 @@
  * @copyright     Copyright 2006-2009, Cake Software Foundation, Inc.
  * @link          http://cakephp.org CakePHP Project
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  * @since         CakePHP v 1.2.0.7726
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -32,10 +32,10 @@ if (!class_exists('ShellDispatcher')) {
 	ob_end_clean();
 }
 
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'view.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'controller.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'template.php';
-require_once CAKE . 'console' .  DS . 'libs' . DS . 'tasks' . DS . 'project.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'view.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'controller.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'template.php';
+require_once CAKE . 'console' .  DS . 'libs' . DS . 'events' . DS . 'project.php';
 
 Mock::generatePartial(
 	'ShellDispatcher', 'TestViewTaskMockShellDispatcher',
@@ -53,7 +53,7 @@ Mock::generate('ProjectTask', 'ViewTaskMockProjectTask');
  * Test View Task Comment Model
  *
  * @package cake
- * @subpackage cake.tests.cases.console.libs.tasks
+ * @subpackage cake.tests.cases.console.libs.events
  */
 class ViewTaskComment extends Model {
 
@@ -91,7 +91,7 @@ class ViewTaskComment extends Model {
  * Test View Task Article Model
  *
  * @package cake
- * @subpackage cake.tests.cases.console.libs.tasks
+ * @subpackage cake.tests.cases.console.libs.events
  */
 class ViewTaskArticle extends Model {
 
@@ -116,7 +116,7 @@ class ViewTaskArticle extends Model {
  * Test View Task Comments Controller
  *
  * @package cake
- * @subpackage cake.tests.cases.console.libs.tasks
+ * @subpackage cake.tests.cases.console.libs.events
  */
 class ViewTaskCommentsController extends Controller {
 
@@ -151,7 +151,7 @@ class ViewTaskCommentsController extends Controller {
  * Test View Task Articles Controller
  *
  * @package cake
- * @subpackage cake.tests.cases.console.libs.tasks
+ * @subpackage cake.tests.cases.console.libs.events
  */
 class ViewTaskArticlesController extends Controller {
 
@@ -231,7 +231,7 @@ class ViewTaskArticlesController extends Controller {
  * ViewTaskTest class
  *
  * @package       cake
- * @subpackage    cake.tests.cases.console.libs.tasks
+ * @subpackage    cake.tests.cases.console.libs.events
  */
 class ViewTaskTest extends CakeTestCase {
 

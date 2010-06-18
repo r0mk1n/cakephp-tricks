@@ -1,5 +1,5 @@
 /**
- * 
+ *
  *
  */
 function __showAlertMesage( text, type ) {
@@ -13,7 +13,7 @@ function __showAlertMesage( text, type ) {
 /**
  * some autorun stuff
  */
-$(function() { 
+$(function() {
     var progress = null;
     $( document ).ajaxStart( function() {
         progress = $.achtung({
@@ -25,4 +25,22 @@ $(function() {
     }).ajaxStop( function() {
         $( progress ).achtung('close');
     });
+
+// attaching listener for elements with class=delete
+    $('.delete').click(function( e ) {
+        e.preventDefault();
+        if ( confirm('Do you realy want to delete this record?') ) {
+            document.location.href = $(this).attr('href');
+        }
+    });
+
+// attaching autocomplete to elements with ID = EventLocation
+    $('#EventLocation').autocomplete({
+	    source: "/locations/find",
+		minLength: 2,
+		select: function( event, ui ) {
+            $('#EventLocationId').val( ui.item.id );
+		}
+    });
+
 });

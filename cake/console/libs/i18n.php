@@ -35,7 +35,7 @@ class I18nShell extends Shell {
 	var $dataSource = 'default';
 
 /**
- * Contains tasks to load and instantiate
+ * Contains events to load and instantiate
  *
  * @var array
  * @access public

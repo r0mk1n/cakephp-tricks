@@ -1,4 +1,5 @@
-<?= $form->create( 'Location', array('url' => '/locations/add', 'method' => 'POST')); ?>
+<?= $form->create( 'Location', array('url' => '/locations/edit', 'method' => 'POST')); ?>
+<?= $form->input( 'Location.id', array( 'type'=>'hidden' ) ); ?>
 <?= $form->input( 'Location.title', array( 'label'=>'Title' ) ); ?>
 <?= $form->input( 'Location.address1', array( 'label'=>'Address', 'rows'=>3 ) ); ?>
 <?= $form->input( 'Location.city', array( 'label'=>'City' ) ); ?>
@@ -6,6 +7,6 @@
 <?= $form->input( 'Location.zip', array( 'label'=>'Zip' ) ); ?>
 <div class="footer-row">
     <a href="/locations">cancel</a>
-    <button type="submit">Add location</button>
+    <button type="submit">Update location</button>
 </div>
 <?= $form->end() ?>

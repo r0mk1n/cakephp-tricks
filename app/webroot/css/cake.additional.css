@@ -22,4 +22,6 @@ span.active { padding:2px 8px; -moz-border-radius: 5px; -webkit-border-radius: 5
 .clear-5 {clear:both; height:5px;}
 .bline {border-bottom:1px solid #999}
 .cpanel {float:right;margin-top:-45px}
-
+.cmessage{margin: 40px 10px;font-weight:bold; text-align:center;}
+.row-a {background-color: #fff }
+.row-b {background-color: #eee }

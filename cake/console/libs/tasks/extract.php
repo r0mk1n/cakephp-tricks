@@ -22,7 +22,7 @@
  * Language string extractor
  *
  * @package       cake
- * @subpackage    cake.cake.console.libs.tasks
+ * @subpackage    cake.cake.console.libs.events
  */
 class ExtractTask extends Shell {
 
@@ -91,7 +91,7 @@ class ExtractTask extends Shell {
 	var $__output = null;
 
 /**
- * Execution method always used for tasks
+ * Execution method always used for events
  *
  * @return void
  * @access private
