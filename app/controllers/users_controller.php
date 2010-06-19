@@ -33,7 +33,7 @@ class UsersController extends AppController {
             if ( $this->User->validates() ) {
                 $this->data['User']['pass'] = md5( $this->data['User']['password'] );
                 $this->data['User']['enabled'] = 'yes';
-                $this->data['User']['code'] = md5( date( 'Ymdhisu' ) );
+                $this->data['User']['ac_code'] = md5( date( 'Ymdhisu' ) );
                 $result = $this->User->save( $this->data );
                 if ( $result ) {
 // sending email
@@ -96,6 +96,10 @@ class UsersController extends AppController {
                             $this->Session->setFlash( 'Your account is not yet activated. Please check your email box for activation instructions', 'default', array(), 'info' );
                         }
                         $this->Session->write( 'User', $user_info['User'] );
+// update modified time
+
+                        $this->User->save( array( 'id' => $user_info['User']['id'], 'modified'=>date( 'Y-m-d h:i' )) );
+
                         $this->Session->setFlash( 'You are successfully logged in.', 'default', array(), 'success' );
                         if ( $this->Session->check( 'before_login_url' ) ) {
                             $url = $this->Session->read( 'before_login_url' );
@@ -112,6 +116,7 @@ class UsersController extends AppController {
                 }
             }
         }
+
         if ( !empty( $this->User->validationErrors ) ) {
             $this->Session->setFlash( 'Some error occured while process your request. Please check entered data.', 'default', array(), 'error' );
         }
@@ -131,16 +136,42 @@ class UsersController extends AppController {
         $this->redirect( '/' );
     }
 
-    function restorepass() {
+    function restorepassword() {
+        $this->set( 'title_for_layout', 'Restoring lost password' );
 
+        if ( !empty( $this->data ) ) {
+
+        }
     }
 
-    function resetpass() {
+    function resend() {
+         $this->set( 'title_for_layout', 'Re-send activation email' );
 
+         if ( !empty( $this->data ) ) {
+
+         }
+    }
+
+    function confirm( $code = null ) {
+        $this->autoRender = false;
+        $code = Sanitize::paranoid( $code );
+
+        if ( !empty( $code ) ) {
+
+
+            $this->Session->setFlash( 'Account successfully confirmed.', 'default', array(), 'success' );
+            $this->redirect( '/pages/confirmation-done' );
+        }
     }
 
     function profile() {
+        $this->set( 'title_for_layout', 'Profile' );
 
+        if ( !empty( $this->data ) ) {
+
+        } else {
+            $this->data = $this->User->findById( $this->user_id );
+        }
     }
 
     function info( $user = null ) {

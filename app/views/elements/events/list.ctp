@@ -9,11 +9,16 @@
     </tr>
 <?php foreach( $this->data as $key => $row ): ?>
     <tr class="row-<?= $key % 2 == 0 ? 'a' : 'b' ?>" id="row_<?= $row['Event']['id']?>">
-        <td><?= $form->input( 'Event.complete', array( 'label'=>'', 'class'=>'complete', 'rel'=>$row['Event']['id'], 'type'=>'checkbox' ) ) ?></td>
+        <td><?= $form->input( "Event.{$row['Event']['id']}.complete", array( 'label'=>'', 'class'=>'complete', 'value'=>$row['Event']['id'], 'type'=>'checkbox' ) ) ?></td>
         <td><?= $row['Event']['title'] ?></td>
-        <td><?= $time->niceShort( $row['Event']['exp_date'] ) ?></td>
-        <td><a href="/locations/info/<?= $row['Location']['id'] ?>"><?= $row['Location']['title'] ?></a></td>
-        <td><?= $row['Event']['url'] ?></td>
+        <td
+<?php
+    if ( strtotime( $row['Event']['exp_date'] ) < time() ):
+        echo ' style="color:#f00" ';
+    endif; ?>
+        ><?= $time->niceShort( $row['Event']['exp_date'] ) ?></td>
+        <td><a href="/locations/info/<?= $row['Location']['id'] ?>" class="location_info"><?= $row['Location']['title'] ?></a></td>
+        <td><a href="<?= $row['Event']['url'] ?>" target="_blank"><?= $row['Event']['url'] ?></a></td>
         <td>
             <a href="/events/edit/<?= $row['Event']['id']?>">edit</a>
             <a href="/events/delete/<?= $row['Event']['id']?>" class="delete">del</a>

@@ -11,7 +11,10 @@
 		echo $this->Html->css( array( 'cake.generic', 'cake.additional', 'ui.achtung', 'jquery-ui-1.8.2.custom' ) );
 		echo $scripts_for_layout;
 	?>
-    <?php echo $html->script(array('jquery-1.4.2.min', 'ui.achtung-min', 'jquery-ui-1.8.2.custom.min', 'tricks')); ?>
+    <?php echo $html->script(array('jquery-1.4.2.min', 'ui.achtung-min', 'jquery-ui-1.8.2.custom.min', 'jquery.forms', 'tricks')); ?>
+    <?php if ( isset( $User ) && !empty( $User ) ): ?>
+        <link rel="alternate" type="application/rss+xml" title="My events feed" href="/rss/<?= $User['ac_code'] ?>.rss" />
+    <?php endif; ?>        
 
 </head>
 <body>
