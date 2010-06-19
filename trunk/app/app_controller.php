@@ -9,7 +9,7 @@ App::import( 'Core', 'Sanitize' );
 
 class AppController extends Controller {
     var $helpers 		= array ( 'Html', 'Javascript', 'Ajax', 'Form', 'Text', 'Session');
-    var $components     = array( 'Session', 'RequestHandler', 'Cookie' );
+    var $components     = array( 'Session', 'Cookie' );
 
     var $user_info      = null;
     var $user_id        = null;
@@ -17,7 +17,7 @@ class AppController extends Controller {
 
     var $auth_url       = '/users/login';
 
-    var $access         = array();  
+    var $access         = array();
 
     function beforeFilter() {
         if ( $this->Session->check( "User" ) ) {

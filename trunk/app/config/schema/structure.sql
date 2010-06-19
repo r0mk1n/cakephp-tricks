@@ -27,7 +27,7 @@ CREATE TABLE `events` (
   `title` varchar(255) default '',
   `description` text,
   `url` varchar(255) default '',
-  `complete` enum('yes','no') default NULL,
+  `complete` enum('yes','no') default 'no',
   `created` datetime default NULL,
   `modified` datetime default NULL,
   PRIMARY KEY  (`id`)

@@ -27,6 +27,7 @@ class LocationsController extends AppController {
         'edit'      => array( 'user', 'admin' ),
         'delete'    => array( 'user', 'admin' ),
         'find'      => array( 'user', 'admin' ),
+        'info'      => array( 'user', 'admin' ),
     );
 
     function index() {
@@ -36,8 +37,13 @@ class LocationsController extends AppController {
     }
 
     function add() {
+        if ( $this->params['isAjax'] ) {
+            $this->layout = 'ajax';
+        }
+
         $this->set( 'title_for_layout', 'New location' );
         $this->data = Sanitize::clean( $this->data );
+
         if ( !empty( $this->data ) ) {
             $this->Location->create();
             $this->Location->setValidation( 'add' );
@@ -47,17 +53,24 @@ class LocationsController extends AppController {
                 $this->data['Location']['user_id'] = $this->user_id;
                 $this->Location->save( $this->data );
 
-                $this->Session->setFlash( 'New location has been successfully created.', 'default', array(), 'success' );
-                $this->redirect( '/locations' );
+                if ( $this->params['isAjax'] ) {
+                    $this->set( 'new_location_id', $this->Location->id );
+                    $this->set( 'new_location_title', $this->data['Location']['title'] );
+                    $this->render('set_location');
+                } else {
+                    $this->Session->setFlash( 'New location has been successfully created.', 'default', array(), 'success' );
+                    $this->redirect( '/locations' );
+                }
             } else {
-                $this->Session->setFlash( 'Some errors occure while adding new location, see errors below', 'default', array(), 'error' );
+                if ( !$this->params['isAjax'] ) {
+                    $this->Session->setFlash( 'Some errors occure while adding new location, see errors below', 'default', array(), 'error' );
+                }
             }
         }
     }
 
     function edit( $id = null ) {
         $this->set( 'title_for_layout', 'Edit location' );
-        $data = Sanitize::paranoid( $id );
 
         if ( !empty( $this->data ) ) {
             $this->Location->set( $this->data );
@@ -72,6 +85,7 @@ class LocationsController extends AppController {
                 $this->Session->setFlash( 'Some errors occure while updatging location, see errors below', 'default', array(), 'error' );
             }
         } else {
+            $data = Sanitize::paranoid( $id );
             $this->data = $this->Location->findById( $id );
             if ( empty( $this->data ) || $this->data['Location']['user_id'] != $this->user_id ) {
                 $this->Session->setFlash( 'Location with such ID not found.', 'default', array(), 'error' );
@@ -102,6 +116,21 @@ class LocationsController extends AppController {
         }
         $this->redirect( '/locations' );
     }
+
+    function info( $id = null ) {
+        $this->layout = 'ajax';
+        $id = Sanitize::paranoid( $id );
+
+        if ( !empty( $id ) ) {
+            $this->data = $this->Location->findById( $id );
+            if ( !empty( $this->data ) && $this->data['Location']['user_id'] == $this->user_id ) {
+
+            } else {
+                $this->set( 'error', 'Location with such ID not founjd' );
+            }
+        }
+    }
+
 
     function find() {
         $this->layout = 'json';

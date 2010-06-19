@@ -3,7 +3,7 @@ Your account has been created:
 
 
 Visit this url to activate your account:
-http://<?= $_SERVER['HTTP_HOST']; ?>/confirm/<?= $user_data['User']['code']?><?php if ( !empty( $delayed_url ) ) { echo "/{$delayed_url}"; } ?>
+http://<?= $_SERVER['HTTP_HOST']; ?>/users/activate/<?= $user_data['User']['ac_code']?>
 
 ---
 Thanks, <?= $_SERVER['HTTP_HOST']?> team.
