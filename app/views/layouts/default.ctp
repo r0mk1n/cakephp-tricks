@@ -14,7 +14,7 @@
     <?php echo $html->script(array('jquery-1.4.2.min', 'ui.achtung-min', 'jquery-ui-1.8.2.custom.min', 'jquery.forms', 'tricks')); ?>
     <?php if ( isset( $User ) && !empty( $User ) ): ?>
         <link rel="alternate" type="application/rss+xml" title="My events feed" href="/rss/<?= $User['ac_code'] ?>.rss" />
-    <?php endif; ?>        
+    <?php endif; ?>
 
 </head>
 <body>
@@ -38,6 +38,8 @@
 		</div>
 	</div>
     <?= $this->element( 'message' ); ?>
+<?php if ( Configure::read( 'debug' ) ): ?>
 	<?= $this->element( 'sql_dump' ); ?>
+<?php endif; ?>        
 </body>
 </html>
