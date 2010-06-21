@@ -51,31 +51,6 @@ CREATE TABLE `locations` (
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-/*Table structure for table `tags` */
-
-DROP TABLE IF EXISTS `tags`;
-
-CREATE TABLE `tags` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `tag` varchar(50) default '',
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-/*Table structure for table `tags_to_events` */
-
-DROP TABLE IF EXISTS `tags_to_events`;
-
-CREATE TABLE `tags_to_events` (
-  `id` int(10) unsigned NOT NULL auto_increment,
-  `event_id` int(10) unsigned default NULL,
-  `user_id` int(10) unsigned default NULL,
-  `tag_id` int(10) unsigned default NULL,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 /*Table structure for table `users` */
 
@@ -88,16 +63,11 @@ CREATE TABLE `users` (
   `enabled` enum('yes','no') default 'yes',
   `activated` enum('yes','no') default 'no',
   `ac_code` varchar(32) default '',
-  `city` varchar(50) default '',
-  `state` varchar(2) default '',
-  `zip` int(10) unsigned default NULL,
-  `address1` varchar(255) default '',
-  `address2` varchar(255) default '',
   `role` enum('admin','user') default 'user',
   `created` datetime default NULL,
   `modified` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
