@@ -44,7 +44,7 @@ class User extends AppModel {
                     'message'   => 'this field must be filled'
                  ),
                 'isEmail' => array(
-                    'rule'      => array( 'email', false ),
+                    'rule'      => array( 'email', true ),
                     'message'   => 'address must be valid email'
                 ),
                 'isUnique' => array(
@@ -60,7 +60,7 @@ class User extends AppModel {
                     'message'   => 'this field must be filled'
                  ),
                 'isEmail' => array(
-                    'rule'      => array( 'email', false ),
+                    'rule'      => array( 'email', true ),
                     'message'   => 'address must be valid email'
                 ),
             ),
@@ -69,6 +69,45 @@ class User extends AppModel {
                     'rule'      => array( 'minLength', '1' ),
                     'required'  => true,
                     'message'   => 'This field cannot be empty'
+                ),
+            ),
+        ),
+        'reset_password'    => array(
+            'new_password'   => array(
+                'minLength' => array (
+                    'rule'      => array( 'minLength', '8' ),
+                    'required'  => true,
+                    'message'   => 'password length need at least 8 characters long'
+                ),
+                'equalToField' => array (
+                    'rule'      => array( 'equalToField', 're_new_password' ),
+                    'required'  => true,
+                    'message'   => 'passwords must be equal'
+                ),
+            ),
+            're_new_password'   => array(
+                'minLength' => array (
+                    'rule'      => array( 'minLength', '8' ),
+                    'required'  => true,
+                    'message'   => 'password length need at least 8 characters long'
+                ),
+                'equalToField' => array (
+                    'rule'      => array( 'equalToField', 'new_password' ),
+                    'required'  => true,
+                    'message'   => 'passwords must be equal'
+                ),
+            ),
+        ),
+
+        'resend_activation' => array(
+            'email' => array(
+                'minLength' => array(
+                    'rule'      => array( 'minLength', '1' ),
+                    'message'   => 'this field must be filled'
+                 ),
+                'isEmail' => array(
+                    'rule'      => array( 'email', true ),
+                    'message'   => 'address must be valid email'
                 ),
             ),
         )
