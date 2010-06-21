@@ -110,7 +110,58 @@ class User extends AppModel {
                     'message'   => 'address must be valid email'
                 ),
             ),
+        ),
+        'profile_email'   => array (
+            'email' => array(
+                'minLength' => array(
+                    'rule'      => array( 'minLength', '1' ),
+                    'message'   => 'this field must be filled'
+                 ),
+                'isEmail' => array(
+                    'rule'      => array( 'email', true ),
+                    'message'   => 'address must be valid email'
+                ),
+                'uniqueNotMe'   => array(
+                    'rule'      => array( 'isUniqueNotMe' ),
+                    'message'   => 'you cannot use this email address'
+
+                )
+            ),
+        ),
+        'profile_password'   => array (
+            'curr_password'   => array(
+                'minLength' => array (
+                    'rule'      => array( 'minLength', '8' ),
+                    'required'  => true,
+                    'message'   => 'password length need at least 8 characters long'
+                ),
+            ),
+            'new_password'   => array(
+                'minLength' => array (
+                    'rule'      => array( 'minLength', '8' ),
+                    'required'  => true,
+                    'message'   => 'password length need at least 8 characters long'
+                ),
+                'equalToField' => array (
+                    'rule'      => array( 'equalToField', 're_new_password' ),
+                    'required'  => true,
+                    'message'   => 'passwords must be equal'
+                ),
+            ),
+            're_new_password'   => array(
+                'minLength' => array (
+                    'rule'      => array( 'minLength', '8' ),
+                    'required'  => true,
+                    'message'   => 'password length need at least 8 characters long'
+                ),
+                'equalToField' => array (
+                    'rule'      => array( 'equalToField', 'new_password' ),
+                    'required'  => true,
+                    'message'   => 'passwords must be equal'
+                ),
+            ),
         )
+
     );
 
     function isUniqueEmail( $email ) {

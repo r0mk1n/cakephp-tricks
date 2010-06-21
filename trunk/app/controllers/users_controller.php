@@ -13,14 +13,16 @@
 
 class UsersController extends AppController {
     var $name           = 'Users';
-    var $uses           = array( 'User' );
+    var $uses           = array( 'User', 'Event', 'Location' );
     var $components     = array( 'SwiftMailer' );
 
     var $access = array(
-        'profile'       => array( 'user', 'admin' )
+        'profile'       => array( 'user', 'admin' ),
+        'delete'        => array( 'user', 'admin' )
     );
 
     function beforeFilter() {
+        parent::beforeFilter();
         $this->SwiftMailer->smtpType = Configure::read( 'smtp_type' );
         $this->SwiftMailer->smtpHost  = Configure::read( 'smtp_host' );
         $this->SwiftMailer->smtpUsername = Configure::read( 'smtp_user' );
@@ -283,9 +285,78 @@ class UsersController extends AppController {
         $this->set( 'title_for_layout', 'Profile' );
 
         if ( !empty( $this->data ) ) {
+            $this->data = Sanitize::clean( $this->data, array( 'encode'=>false ) );
+// user change email
+            if ( $this->user_info['email'] != $this->data['User']['email'] ) {
+                $this->User->create();
+                $this->User->setValidation( 'profile_email' );
+                $this->User->set( $this->data );
 
+                if ( $this->User->validates() ) {
+// setting new email
+                    $this->User->save( array( 'id'=>$this->user_id, 'email'=>$this->data['User']['email'] ) );
+// get user data
+                    $this->data = $this->User->findById( $this->user_id );
+// save changed data to session
+                    $this->Session->save( 'User', $this->data['User'] );
+
+// re-sending activation email to new address
+                    $this->SwiftMailer->to = $this->data['User']['email'];
+                    $this->set( 'user_data', $this->data );
+
+                    try {
+                        if ( !$this->SwiftMailer->send( 'registration_confirm', "[" . Configure::read('site_name') . "] Please please confirm your new email") ) {
+                            $this->Session->setFlash( 'System can not re-send activation email. Please try againg later.', 'default', array(), 'error' );
+                        }
+                    } catch(Exception $e) {
+                         $this->Session->setFlash( 'System can not re-send activation email. Please try againg later.', 'default', array(), 'error' );
+                    }
+                }
+            }
+// if user fill password fields - try to change password
+            if ( !empty( $this->data['User']['new_password'] ) ) {
+// checking current password
+                if ( md5( $this->data['User']['curr_password'] ) != $this->user_info['pass'] ) {
+                    $this->User->invalidate( 'curr_password', 'Invalid password' );
+                } else {
+                    $this->User->create();
+                    $this->User->setValidation( 'profile_password' );
+                    $this->User->set( $this->data );
+
+                    if ( $this->User->validates() ) {
+                        $this->User->save( array( 'id'=>$this->user_id, 'pass'=>md5( $this->data['User']['new_password'] ) ) );
+                    }
+                }
+            }
+            if ( !empty( $this->User->validationErrors ) ) {
+                $this->Session->setFlash( 'Some error occured while process your request. Please check entered data.', 'default', array(), 'error' );
+            } else {
+                $this->Session->setFlash( 'Your account information has been successfully updated.', 'default', array(), 'success' );
+            }
         } else {
             $this->data = $this->User->findById( $this->user_id );
+        }
+    }
+
+    function delete() {
+        $this->set( 'title_for_layout', 'Confirm your account deletion' );
+
+        if ( !empty( $this->data ) ) {
+            $this->data = Sanitize::clean( $this->data, array( 'encode'=>false ) );
+
+            if ( isset(  $this->data['User']['curr_password'] ) && md5( $this->data['User']['curr_password'] ) == $this->user_info['pass'] ) {
+                $this->Location->deleteAll( array( 'Location.user_id' => $this->user_id ) );
+                $this->Event->deleteAll( array( 'Event.user_id' => $this->user_id ) );
+                $this->User->delete( $this->user_id );
+                $this->Session->delete( 'User' );
+                $this->Session->setFlash( 'Your account has been successfully removed.', 'default', array(), 'success' );
+                $this->redirect( '/' ); 
+            } else {
+                $this->User->invalidate( 'curr_password', 'Please enter correct password' );
+            }
+        }
+        if ( !empty( $this->User->validationErrors ) ) {
+            $this->Session->setFlash( 'Some error occured while process your request. Please check entered data.', 'default', array(), 'error' );
         }
     }
 }

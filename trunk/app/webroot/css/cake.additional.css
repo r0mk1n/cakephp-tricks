@@ -29,8 +29,10 @@ span.active { padding:2px 8px; -moz-border-radius: 5px; -webkit-border-radius: 5
 ul {list-style:none; padding: 0px;margin:0px;}
 ul li {padding:0; margin:0; clear:both;}
 ul li strong { float:left;width:150px }
-.calendar span {background-color: #aaa; color: #fff; padding:3px; -webkit-border-radius: 5px; border-radius:5px;float:left;margin-left:-5px; margin-top:-5px}
-.calendar td {border:0px }
+.calendar span {background-color: #aaa; color: #fff; padding:3px; -moz-border-radius: 5px;-webkit-border-radius: 5px; border-radius:5px;float:left;margin-left:-5px; margin-top:-5px}
+.calendar td {border:0px;-moz-border-radius: 5px;-webkit-border-radius: 5px; border-radius:5px; }
 .calendar td tr {border:0px }
 .calendar td td {border:0px;padding:5px 0px 0px 0px;margin-left:-5px; }
 .calendar a {font-size: 11px;font-weight:normal;}
+td.today { background-color: #cacaca; }
+.error-message { padding: 4px }

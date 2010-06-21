@@ -49,9 +49,13 @@
             $weekday   = 0;
             echo "</tr><tr>";
         }
+        $dclass = '';
+        if ( intval( date( "Ymd" ) ) == intval( date( "Ymd", mktime( 0, 0, 0, $month, $day, $year ) ) ) ) {
+            $dclass = ' class="today"';
+        }
         if ( isset( $this->data[$day] ) && is_array( $this->data[$day] ) ):
 ?>
-            <td><span><?= $day ?></span>
+            <td <?= $dclass ?>><span><?= $day ?></span>
                 <table width="100%" cellpadding="0" cellspacing="0" border="0" border-collapse="collapse">
 <?php foreach ( $this->data[$day] as $k => $row ): ?>
                     <tr id="row_<?= $row['Event']['id']?>">
@@ -64,7 +68,7 @@
                 </table>
             </td>
 <?php else: ?>
-            <td><span><?= $day ?></span></td>
+            <td <?= $dclass ?>><span><?= $day ?></span></td>
 <?php endif; ?>
 <?php endfor; ?>
 <?php if ( $weekday != 7 ): ?>
