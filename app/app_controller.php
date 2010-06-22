@@ -29,6 +29,7 @@ class AppController extends Controller {
             $this->user_id     = null;
             $this->user_role   = 'guest';
         }
+        
         $this->set( 'User', $this->user_info );
         if ( !$this->checkAccess( $this->action, $this->access ) ) {
         	$this->Session->write( 'before_login_url', $this->here );
