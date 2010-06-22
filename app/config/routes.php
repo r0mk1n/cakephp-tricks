@@ -31,6 +31,10 @@
  * ...and connect the rest of 'Pages' controller's urls.
  */
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+
+    Router::connect('/admin', array('controller' => 'dashboard', 'action' => 'index', 'prefix'=>'admin'));
+
+
 /**
  * my rss chanel
  */
