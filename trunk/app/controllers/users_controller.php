@@ -62,14 +62,17 @@ class UsersController extends AppController {
                     try {
                         if ( !$this->SwiftMailer->send( 'registration_confirm', "[" . Configure::read('site_name') . "] Please activate your new account") ) {
                             $this->Session->setFlash( 'System can not sending confirmation email. Please check your email address.', 'default', array(), 'error' );
+                            $this->log("Error sending email");
                             $this->User->delete( $this->User->id );
                         } else {
                             $this->Session->setFlash( 'Account successfully created', 'default', array(), 'success' );
+
                             $this->redirect( '/pages/registration-done' );
                         }
                     } catch(Exception $e) {
                          $this->Session->setFlash( 'System can not sending confirmation email. Please check your email address.', 'default', array(), 'error' );
                          $this->User->delete( $this->User->id );
+                         $this->log("Failed to send email: ".$e->getMessage());
                     }
                 } else {
                     $this->Session->setFlash( 'Registration failed, please check entered data', 'default', array(), 'error' );
@@ -350,7 +353,7 @@ class UsersController extends AppController {
                 $this->User->delete( $this->user_id );
                 $this->Session->delete( 'User' );
                 $this->Session->setFlash( 'Your account has been successfully removed.', 'default', array(), 'success' );
-                $this->redirect( '/' ); 
+                $this->redirect( '/' );
             } else {
                 $this->User->invalidate( 'curr_password', 'Please enter correct password' );
             }
