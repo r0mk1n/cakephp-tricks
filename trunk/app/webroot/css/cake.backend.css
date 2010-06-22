@@ -1,0 +1,44 @@
+body {background-color: #3F4C6B}
+#header h1 { background: #3F4C6B url('../img/cake.icon.png') no-repeat left; }
+#header h1 a { background: #3F4C6B; }
+
+
+#container { margin:0px auto; width:990px; }
+a {font-weight:normal}
+#header {margin-top: 20px;}
+#header #userpanel { float:right; }
+#header #userpanel a { color: #fff; }
+#content { -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius:10px; min-height:500px;}
+button { padding: 8px; font-size: 1.0em; }
+h3 {
+    font: 20px/22px Arial, Helvetica, sans-serif;
+    border-bottom: 1px solid #999;
+    padding:5px;
+    color:#000;
+    margin:0px 0px 20px;
+    font-weight:bold;
+}
+form {margin:0;width:500px;padding:0}
+form div {margin-bottom:10px;padding: 0}
+input, textarea, select {font-size:100%; padding:5px;}
+.footer-row {margin:10px 0px; clear:both;vertical-align:middle;text-align:right;background-color:#f0f0f0;padding:10px 5px}
+span.active { padding:2px 8px; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius:5px; background-color: #e0e0e0; color: #000 }
+.form-error {border:1px solid #f00 !important;}
+.clear {clear:both; height:0px;}
+.clear-5 {clear:both; height:5px;}
+.bline {border-bottom:1px solid #999}
+.cpanel {float:right;margin-top:-45px}
+.cmessage{margin: 40px 10px;font-weight:bold; text-align:center;}
+.row-a {background-color: #fff }
+.row-b {background-color: #eee }
+ul {list-style:none; padding: 0px;margin:0px;}
+ul li {padding:0; margin:0; clear:both;}
+ul li strong { float:left;width:150px }
+.calendar span {background-color: #aaa; color: #fff; padding:3px; -moz-border-radius: 5px;-webkit-border-radius: 5px; border-radius:5px;float:left;margin-left:-5px; margin-top:-5px}
+.calendar td {border:0px;-moz-border-radius: 5px;-webkit-border-radius: 5px; border-radius:5px; }
+.calendar td tr {border:0px }
+.calendar td td {border:0px;padding:5px 0px 0px 0px;margin-left:-5px; }
+.calendar a {font-size: 11px;font-weight:normal;}
+td.today { background-color: #cacaca; }
+.error-message { padding: 4px }
+.p30 { width:30%; padding:10px;float:left }
