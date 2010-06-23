@@ -14,7 +14,6 @@
 class EventsController extends AppController {
     var $name               = 'Events';
     var $uses               = array( 'Event', 'Location', 'User'  );
-    var $components         = array( 'RequestHandler' );
     var $helpers            = array( 'Time', 'Rss' );
 
     var $access = array(

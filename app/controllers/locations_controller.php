@@ -37,7 +37,7 @@ class LocationsController extends AppController {
     }
 
     function add() {
-        if ( $this->params['isAjax'] ) {
+        if ( !empty( $this->params['isAjax'] ) ) {
             $this->layout = 'ajax';
         }
 
@@ -53,7 +53,7 @@ class LocationsController extends AppController {
                 $this->data['Location']['user_id'] = $this->user_id;
                 $this->Location->save( $this->data );
 
-                if ( $this->params['isAjax'] ) {
+                if ( !empty( $this->params['isAjax'] ) ) {
                     $this->set( 'new_location_id', $this->Location->id );
                     $this->set( 'new_location_title', $this->data['Location']['title'] );
                     $this->render('set_location');
@@ -62,7 +62,7 @@ class LocationsController extends AppController {
                     $this->redirect( '/locations' );
                 }
             } else {
-                if ( !$this->params['isAjax'] ) {
+                if ( empty( $this->params['isAjax'] ) ) {
                     $this->Session->setFlash( 'Some errors occure while adding new location, see errors below', 'default', array(), 'error' );
                 }
             }
