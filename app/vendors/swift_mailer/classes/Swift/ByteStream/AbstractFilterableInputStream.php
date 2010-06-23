@@ -1,11 +1,21 @@
 <?php
 
 /*
- * This file is part of SwiftMailer.
- * (c) 2004-2009 Chris Corbyn
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ Bi-Directional FileStream in Swift Mailer.
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
  */
 
 //@require 'Swift/InputByteStream.php';
@@ -165,7 +175,9 @@ abstract class Swift_ByteStream_AbstractFilterableInputStream
   /** Just write the bytes to the stream */
   private function _doWrite($bytes)
   {
-    $this->_commit($this->_filter($bytes));
+    $bytes = $this->_filter($bytes);
+    
+    $this->_commit($bytes);
     
     foreach ($this->_mirrors as $stream)
     {

@@ -1,11 +1,21 @@
 <?php
 
 /*
- * This file is part of SwiftMailer.
- * (c) 2004-2009 Chris Corbyn
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ The default Message class Swift Mailer.
+ 
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ 
  */
 
 //@require 'Swift/Mime/Message.php';
@@ -173,9 +183,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    */
   public function addFrom($address, $name = null)
   {
-    $current = $this->getFrom();
-    $current[$address] = $name;
-    return $this->setFrom($current);
+    return $this->setFrom(array_merge(
+      (array) $this->getFrom(), array($address => $name)
+    ));
   }
   
   /**
@@ -223,9 +233,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    */
   public function addReplyTo($address, $name = null)
   {
-    $current = $this->getReplyTo();
-    $current[$address] = $name;
-    return $this->setReplyTo($current);
+    return $this->setReplyTo(array_merge(
+      (array) $this->getReplyTo(), array($address => $name)
+    ));
   }
   
   /**
@@ -273,9 +283,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    */
   public function addTo($address, $name = null)
   {
-    $current = $this->getTo();
-    $current[$address] = $name;
-    return $this->setTo($current);
+    return $this->setTo(array_merge(
+      (array) $this->getTo(), array($address => $name)
+    ));
   }
   
   /**
@@ -323,9 +333,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    */
   public function addCc($address, $name = null)
   {
-    $current = $this->getCc();
-    $current[$address] = $name;
-    return $this->setCc($current);
+    return $this->setCc(array_merge(
+      (array) $this->getCc(), array($address => $name)
+    ));
   }
   
   /**
@@ -371,9 +381,9 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
    */
   public function addBcc($address, $name = null)
   {
-    $current = $this->getBcc();
-    $current[$address] = $name;
-    return $this->setBcc($current);
+    return $this->setBcc(array_merge(
+      (array) $this->getBcc(), array($address => $name)
+    ));
   }
   
   /**
@@ -535,18 +545,6 @@ class Swift_Mime_SimpleMessage extends Swift_Mime_MimePart
       $string = parent::toString();
     }
     return $string;
-  }
-  
-  /**
-   * Returns a string representation of this object.
-   *
-   * @return string
-   *
-   * @see toString()
-   */
-  public function __toString()
-  {
-    return $this->toString();
   }
   
   /**
