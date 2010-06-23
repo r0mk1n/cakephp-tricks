@@ -9,7 +9,7 @@ App::import( 'Core', 'Sanitize' );
 
 class AppController extends Controller {
     var $helpers 		= array ( 'Html', 'Javascript', 'Ajax', 'Form', 'Text', 'Session');
-    var $components     = array( 'Session', 'Cookie' );
+    var $components     = array( 'Session', 'Cookie', 'RequestHandler' );
 
     var $user_info      = null;
     var $user_id        = null;
@@ -29,7 +29,7 @@ class AppController extends Controller {
             $this->user_id     = null;
             $this->user_role   = 'guest';
         }
-        
+
         $this->set( 'User', $this->user_info );
         if ( !$this->checkAccess( $this->action, $this->access ) ) {
         	$this->Session->write( 'before_login_url', $this->here );
