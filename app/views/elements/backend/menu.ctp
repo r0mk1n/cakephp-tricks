@@ -1,6 +1,6 @@
 <?php
     $links = array(
-        'dashboard'           => '/admin',
+        'dashboard'           => '/admin/dashboard',
         'users management'    => '/admin/users',
         'view frontend'       => '/',
         'logout'              => '/users/logout'

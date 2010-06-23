@@ -42,3 +42,7 @@ ul li strong { float:left;width:150px }
 td.today { background-color: #cacaca; }
 .error-message { padding: 4px }
 .p30 { width:30%; padding:10px;float:left }
+#filter {background-color: #eee; padding: 10px;clear:both; border:1px solid #999}
+#filter div { float:left;display:block;clear:right;margin:0px 10px }
+#filter select {width:100px}
+.info-message {background-color:#ff0; padding: 10px;}

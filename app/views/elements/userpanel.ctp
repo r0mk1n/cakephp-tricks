@@ -14,7 +14,7 @@
     $links = ( isset( $User ) && !empty( $User ) ) ? $logged_in_links : $logged_out_links;
 ?>
 <?php if ( isset( $User ) && !empty( $User ) && $User['role'] == 'admin' ): ?>
-    <a href="/admin" style="font-weight:bold;color: #ff0">backend</a>&nbsp;
+    <a href="/admin/dashboard" style="font-weight:bold;color: #ff0">backend</a>&nbsp;
 <?php endif; ?>
 <?php
     $i=0;

@@ -15,14 +15,21 @@ class UsersController extends AppController {
     var $name           = 'Users';
     var $uses           = array( 'User', 'Event', 'Location' );
     var $components     = array( 'SwiftMailer' );
+    var $helpers        = array( 'Time' );
 
     var $access = array(
         'profile'       => array( 'user', 'admin' ),
-        'delete'        => array( 'user', 'admin' )
+        'delete'        => array( 'user', 'admin' ),
+
+        'admin_index'           => array( 'admin' ),
+        'admin_update'          => array( 'admin' ),
+        'admin_set_filter'      => array( 'admin' ),
+        'admin_reset_filter'    => array( 'admin' ),
     );
 
     function beforeFilter() {
         parent::beforeFilter();
+
         $this->SwiftMailer->smtpType = Configure::read( 'smtp_type' );
         $this->SwiftMailer->smtpHost  = Configure::read( 'smtp_host' );
         $this->SwiftMailer->smtpUsername = Configure::read( 'smtp_user' );
@@ -102,7 +109,7 @@ class UsersController extends AppController {
 // checking enabled status
                         if ( $user_info['User']['enabled'] == 'no' ) {
                             $this->Session->setFlash( 'Your account has been disabled', 'default', array(), 'error' );
-                            return;
+                            $this->redirect( '/' );
                         }
                         if ( $user_info['User']['activated'] == 'no' ) {
                             $this->Session->setFlash( 'Your account is not yet activated. Please check your email box for activation instructions', 'default', array(), 'info' );
@@ -248,8 +255,9 @@ class UsersController extends AppController {
                         if ( !$this->SwiftMailer->send( 'registration_confirm', "[" . Configure::read('site_name') . "] Please activate your new account") ) {
                             $this->Session->setFlash( 'System can not re-send activation email. Please try againg later.', 'default', array(), 'error' );
                         } else {
-                            $this->Session->setFlash( 'Account successfully created', 'default', array(), 'success' );
-                            $this->redirect( '/pages/registration-done' );
+                        $this->Session->setFlash( 'Account successfully created', 'default', array(), 'success' );
+                        $this->redirect( '/pages/registration-done' );
+
                         }
                     } catch(Exception $e) {
                          $this->Session->setFlash( 'System can not re-send activation email. Please try againg later.', 'default', array(), 'error' );
@@ -361,6 +369,92 @@ class UsersController extends AppController {
         if ( !empty( $this->User->validationErrors ) ) {
             $this->Session->setFlash( 'Some error occured while process your request. Please check entered data.', 'default', array(), 'error' );
         }
+    }
+
+/***********************************************************************************************************************************************
+ * Backend methods
+ */
+
+    function admin_index() {
+        $this->layout = 'backend';
+        $this->set( 'title_for_layout', 'Users management' );
+
+// reading filter values
+        $filter = $this->__default_filter();
+        if ( $this->Session->check( 'User.filter' ) ) {
+            $filter = $this->Session->read( 'User.filter' );
+        }
+        $this->set( 'filter', $filter );
+
+// setup pagination
+        $this->paginate = array(
+            'limit'     => 10,
+            'order'     => 'User.created DESC'
+        );
+
+// applying filters
+        if ( !empty( $filter['email'] ) ) {
+            $this->paginate['conditions'][] = array( "LOWER(User.email) like LOWER('%{$filter['email']}%')" );
+        }
+        if ( $filter['activated'] != 'all' ) {
+            $this->paginate['conditions'][] = array( "User.activated"=>$filter['activated'] );
+        }
+        if ( $filter['enabled'] != 'all' ) {
+            $this->paginate['conditions'][] = array( "User.enabled"=>$filter['enabled'] );
+        }
+
+        $this->data = $this->paginate( 'User' );
+    }
+
+    function admin_update() {
+        $this->autoRender = false;
+
+        $this->data = Sanitize::clean( $this->data, array( 'encode'=>false ) );
+
+        if ( !empty( $this->data ) ) {
+            foreach( $this->data['User'] as $user_id => $row ) {
+                if ( $row['delete'] == 'yes' ) {
+                    $this->Location->deleteAll( array( 'Location.user_id' => $user_id ) );
+                    $this->Event->deleteAll( array( 'Event.user_id' => $user_id ) );
+                    $this->User->delete( $user_id );
+                } else {
+                    $this->User->save( array( 'id'=>$user_id, 'activated'=>$row['activated'], 'enabled'=>$row['enabled'] ) );
+                }
+            }
+        }
+        $this->Session->setFlash( 'Records has been updated', 'default', array(), 'success' );
+        $this->redirect( '/admin/users' );
+    }
+
+    function admin_set_filter() {
+        $this->autoRender = false;
+        $this->data = Sanitize::clean( $this->data );
+
+        if ( !empty( $this->data ) ) {
+            $filters = array(
+                'email'         => !empty( $this->data['User']['email'] ) ? $this->data['User']['email'] : '',
+                'activated'     => $this->data['User']['activated'],
+                'enabled'       => $this->data['User']['enabled'],
+            );
+            $this->Session->write( 'User.filter', $filters );
+        }
+        $this->redirect( '/admin/users' );
+    }
+
+    function admin_reset_filter(){
+        $this->autoRender = false;
+        $this->data = Sanitize::paranoid( $this->data );
+
+        $this->Session->write( 'User.filter', $this->__default_filter() );
+        $this->redirect( '/admin/users' );
+    }
+
+    function __default_filter() {
+        return array(
+            'email'         => '',
+            'activated'     => 'all',
+            'enabled'       => 'all',
+        );
     }
 }
 

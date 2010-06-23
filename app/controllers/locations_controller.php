@@ -138,7 +138,6 @@ class LocationsController extends AppController {
             $term = Sanitize::clean( $this->params['url']['term'] );
             $this->data = $this->Location->find( 'all', array( 'conditions'=>array( "upper(Location.title) like upper( '%{$term}%' ) " ) ) );
         }
-        $this->log( $this->data );
     }
 }
 
