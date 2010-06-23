@@ -404,6 +404,10 @@ class UsersController extends AppController {
         if ( $filter['enabled'] != 'all' ) {
             $this->paginate['conditions'][] = array( "User.enabled"=>$filter['enabled'] );
         }
+        if ( $filter['role'] != 'all' ) {
+            $this->paginate['conditions'][] = array( "User.role"=>$filter['role'] );
+        }
+
 
         $this->data = $this->paginate( 'User' );
     }
@@ -420,7 +424,7 @@ class UsersController extends AppController {
                     $this->Event->deleteAll( array( 'Event.user_id' => $user_id ) );
                     $this->User->delete( $user_id );
                 } else {
-                    $this->User->save( array( 'id'=>$user_id, 'activated'=>$row['activated'], 'enabled'=>$row['enabled'] ) );
+                    $this->User->save( array( 'id'=>$user_id, 'activated'=>$row['activated'], 'enabled'=>$row['enabled'], 'role'=>$row['role'] ) );
                 }
             }
         }
@@ -437,6 +441,7 @@ class UsersController extends AppController {
                 'email'         => !empty( $this->data['User']['email'] ) ? $this->data['User']['email'] : '',
                 'activated'     => $this->data['User']['activated'],
                 'enabled'       => $this->data['User']['enabled'],
+                'role'          => $this->data['User']['role'],
             );
             $this->Session->write( 'User.filter', $filters );
         }
@@ -456,6 +461,7 @@ class UsersController extends AppController {
             'email'         => '',
             'activated'     => 'all',
             'enabled'       => 'all',
+            'role'          => 'all',
         );
     }
 }
