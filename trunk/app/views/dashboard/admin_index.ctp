@@ -10,8 +10,8 @@
     <table>
         <tr><th colspan="2">Events</th></tr>
         <tr><td>Complete</td><td><?= $this->data['Event']['complete'] ?></td></tr>
-        <tr><td>Not complete</td><td><?= $this->data['Event']['not_complete'] ?></td></tr>
-        <tr><td>Expired *</td><td><?= $this->data['Event']['expired'] ?></td></tr>
+        <tr><td>Non complete</td><td><?= $this->data['Event']['not_complete'] ?></td></tr>
+        <tr><td>Expired *<br /><sub>part on non-complete events</sub></td><td><?= $this->data['Event']['expired'] ?></td></tr>
         <tr style="font-weight:bold"><td>Total</td><td><?= $this->data['Event']['complete'] + $this->data['Event']['not_complete'] ?></td></tr>
     </table>
 </div>
