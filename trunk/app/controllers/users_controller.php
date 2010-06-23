@@ -39,6 +39,8 @@ class UsersController extends AppController {
         $this->SwiftMailer->sendAs = 'text';
         $this->SwiftMailer->from = Configure::read( 'smtp_mail_from_addr' );
         $this->SwiftMailer->fromName = Configure::read( 'smtp_mail_from_name' );
+
+        $this->SwiftMailer->replyTo = Configure::read( 'smtp_mail_from_addr' );
     }
 
 /**
