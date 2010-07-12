@@ -19,6 +19,7 @@ class DashboardController extends AppController {
 // users
         $this->data['User']['activated']  = $this->User->find( 'count', array( 'conditions'=>array( 'activated'=>'yes' ) ) );
         $this->data['User']['not_activated']  = $this->User->find( 'count', array( 'conditions'=>array( 'activated'=>'no' ) ) );
+
 // events
         $this->data['Event']['complete']  = $this->Event->find( 'count', array( 'conditions'=>array( 'complete'=>'yes' ) ) );
         $this->data['Event']['not_complete']  = $this->Event->find( 'count', array( 'conditions'=>array( 'complete'=>'no' ) ) );
