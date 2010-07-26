@@ -12,7 +12,9 @@
 class User extends AppModel {
     var $name = 'User';
 
+    // validation sets
     var $validationSet = array(
+        // registration
         'registration'  => array(
             'password'   => array(
                 'minLength' => array (
@@ -53,6 +55,8 @@ class User extends AppModel {
                 ),
             ),
         ),
+
+        // login
         'login' => array(
             'email' => array(
                 'minLength' => array(
@@ -72,6 +76,8 @@ class User extends AppModel {
                 ),
             ),
         ),
+
+        // reset password
         'reset_password'    => array(
             'new_password'   => array(
                 'minLength' => array (
@@ -99,6 +105,7 @@ class User extends AppModel {
             ),
         ),
 
+        // resend activation email
         'resend_activation' => array(
             'email' => array(
                 'minLength' => array(
@@ -111,6 +118,8 @@ class User extends AppModel {
                 ),
             ),
         ),
+
+        // setting new email in profile
         'profile_email'   => array (
             'email' => array(
                 'minLength' => array(
@@ -128,6 +137,8 @@ class User extends AppModel {
                 )
             ),
         ),
+
+        // setting new password in profile
         'profile_password'   => array (
             'curr_password'   => array(
                 'minLength' => array (
@@ -164,14 +175,30 @@ class User extends AppModel {
 
     );
 
+/**
+ * Checking is this email not using by another user
+ *
+ * @param  $email
+ * @return bool
+ */
     function isUniqueEmail( $email ) {
         return $this->find( 'count', array( 'conditions'=>array( 'email'=>$email ) ) ) ? false : true;
     }
 
+/**
+ * Checking is this email exists
+ * @param  $email
+ * @return bool
+ */
     function isEmailExists( $email ) {
         return $this->find( 'count', array( 'conditions'=>array( 'email'=>$email ) ) ) ? true : false;
     }
 
+/**
+ * Is this email unique ( exclude curemnt user email )
+ * @param  $data
+ * @return bool
+ */
     function isUniqueNotMe( $data ) {
         $key = array_keys( $data );
         if ( isset( $key[0] ) ) {

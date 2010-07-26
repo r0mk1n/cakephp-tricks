@@ -16,15 +16,15 @@ class DashboardController extends AppController {
     function admin_index() {
         $this->set( 'title_for_layout', 'Dashboard' );
 
-// users
+        // users
         $this->data['User']['activated']  = $this->User->find( 'count', array( 'conditions'=>array( 'activated'=>'yes' ) ) );
         $this->data['User']['not_activated']  = $this->User->find( 'count', array( 'conditions'=>array( 'activated'=>'no' ) ) );
 
-// events
+        // events
         $this->data['Event']['complete']  = $this->Event->find( 'count', array( 'conditions'=>array( 'complete'=>'yes' ) ) );
         $this->data['Event']['not_complete']  = $this->Event->find( 'count', array( 'conditions'=>array( 'complete'=>'no' ) ) );
         $this->data['Event']['expired']  = $this->Event->find( 'count', array( 'conditions'=>array( 'complete'=>'no', 'exp_date < "' . date( 'Y-m-d' )  . '"' ) ) );
-// locations
+        // locations
         $this->data['Location']['all']  = $this->Location->find( 'count' );
     }
 

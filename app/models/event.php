@@ -3,6 +3,7 @@
 class Event extends AppModel {
     var $name = 'Event';
 
+    // belongsTo association
     var $belongsTo = array(
         'Location'  => array(
             'className'     => 'Location',
@@ -10,6 +11,7 @@ class Event extends AppModel {
         )
     );
 
+    // validation sets
     var $validationSet = array(
         'add'   => array(
             'title' => array(
