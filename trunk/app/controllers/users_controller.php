@@ -17,6 +17,10 @@ class UsersController extends AppController {
     var $components     = array( 'SwiftMailer' );
     var $helpers        = array( 'Time' );
 
+/**
+ * access array
+ * @see /app/app_controller.php
+ */
     var $access = array(
         'profile'       => array( 'user', 'admin' ),
         'delete'        => array( 'user', 'admin' ),
@@ -27,9 +31,16 @@ class UsersController extends AppController {
         'admin_reset_filter'    => array( 'admin' ),
     );
 
+/**
+ * Override beforeFilter method from app_controllelr
+ * @return void
+ */
     function beforeFilter() {
+        // call parent method
         parent::beforeFilter();
 
+        // setuping mailer
+        // for settings see /app/config/core.php
         $this->SwiftMailer->smtpType = Configure::read( 'smtp_type' );
         $this->SwiftMailer->smtpHost  = Configure::read( 'smtp_host' );
         $this->SwiftMailer->smtpUsername = Configure::read( 'smtp_user' );
@@ -49,33 +60,43 @@ class UsersController extends AppController {
  *
  * @return void
  */
-
     function registration() {
+        // setting title
         $this->set( 'title_for_layout', 'New user registration' );
+        // is incoming data exists ?
         if ( !empty( $this->data ) ) {
+            // clean incoming data
             $this->data = Sanitize::clean( $this->data, array( 'encode'=>false ) );
+            // initialize User model
             $this->User->create();
+            // setting validation scheme
             $this->User->setValidation( 'registration' );
+            // setting data
             $this->User->set( $this->data );
+            // validating
             if ( $this->User->validates() ) {
+                // filling required fields
                 $this->data['User']['email'] = strtolower( $this->data['User']['email'] );
                 $this->data['User']['pass'] = md5( $this->data['User']['password'] );
                 $this->data['User']['enabled'] = 'yes';
                 $this->data['User']['ac_code'] = md5( date( 'Ymdhisu' ) );
-                $result = $this->User->save( $this->data );
+                // save new user record
+                $result = $this->User->save( $this->data, false );
+
                 if ( $result ) {
-// sending email
+                    // sending email
                     $this->SwiftMailer->to = $this->data['User']['email'];
                     $this->set( 'user_data', $this->data );
 
                     try {
                         if ( !$this->SwiftMailer->send( 'registration_confirm', "[" . Configure::read('site_name') . "] Please activate your new account") ) {
                             $this->Session->setFlash( 'System can not sending confirmation email. Please check your email address.', 'default', array(), 'error' );
-                            $this->log("Error sending email");
+                            $this->log( "Error sending email" );
+                            // delete user record if email fail
                             $this->User->delete( $this->User->id );
                         } else {
+                            // redirecting on success
                             $this->Session->setFlash( 'Account successfully created', 'default', array(), 'success' );
-
                             $this->redirect( '/pages/registration-done' );
                         }
                     } catch(Exception $e) {
@@ -94,7 +115,7 @@ class UsersController extends AppController {
 
 
 /**
- * Login method
+ * Login 
  * @params POST
  * @return void
  */
