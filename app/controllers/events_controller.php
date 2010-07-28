@@ -42,7 +42,7 @@ class EventsController extends AppController {
  * Index function
  * Showing events list/calendar
  *
- * @see setmode
+ * @see setmode method
  * @return void
  */
     function index() {

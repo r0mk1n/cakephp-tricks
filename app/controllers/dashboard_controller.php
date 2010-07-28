@@ -10,7 +10,7 @@ class DashboardController extends AppController {
     );
 
 /**
- * Getting statistics
+ * Showing statistics
  * @return void
  */
     function admin_index() {
