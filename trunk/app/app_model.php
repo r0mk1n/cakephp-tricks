@@ -20,7 +20,7 @@ class AppModel extends Model {
 	}
 
 /**
- * Sets a field as invalid, optionally setting the name of validation
+ * Set a field as invalid, optionally setting the name of validation
  * rule (in case of multiple validation for field) that was broken
  *
  * @param string $field The name of the field to invalidate
@@ -40,11 +40,13 @@ class AppModel extends Model {
 
 /**
  * Custom validation rules
+ *
  */
     
     function otherFieldNotEmpty( $data, $field_to_check ) {
         return ( !empty( $this->data[$this->name][$field_to_check] ) ) ? true : false;
     }
+
 
     function equalToField( $data, $field ) {
         $filed_tmp = array_values( $data );
