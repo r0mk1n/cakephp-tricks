@@ -427,7 +427,9 @@ class UsersController extends AppController {
                     // get user data
                     $this->data = $this->User->findById( $this->user_id );
                     // save changed data to session
-                    $this->Session->save( 'User', $this->data['User'] );
+                    $thus->user_info = $this->User->findById( $this->user_id );
+                    $this->Session->write( 'User', $this->user_info );
+
 
                     // re-sending activation email to new address
                     $this->SwiftMailer->to = $this->data['User']['email'];
@@ -460,7 +462,8 @@ class UsersController extends AppController {
                         // saving new password
                         $this->User->save( array( 'id'=>$this->user_id, 'pass'=>md5( $this->data['User']['new_password'] ) ) );
                         // setting new user's info
-                        $this->Session->save( 'User', $this->data['User'] );
+                        $thus->user_info = $this->User->findById( $this->user_id );
+                        $this->Session->write( 'User', $this->user_info );
                     }
                 }
             }
@@ -470,6 +473,7 @@ class UsersController extends AppController {
             } else {
                 $this->Session->setFlash( 'Your account information has been successfully updated.', 'default', array(), 'success' );
             }
+            $this->redirect( '/users/profile' );
         } else {
             // reading data for view
             $this->data = $this->User->findById( $this->user_id );
