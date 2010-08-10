@@ -64,7 +64,7 @@ class User extends AppModel {
                     'message'   => 'this field must be filled'
                  ),
                 'isEmail' => array(
-                    'rule'      => array( 'email', true ),
+                    'rule'      => array( 'email', false ),
                     'message'   => 'address must be valid email'
                 ),
             ),
