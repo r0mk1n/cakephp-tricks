@@ -1,0 +1,350 @@
+<html>
+<head>
+    <title>Planing</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" media="screen" />
+    <!--[if IE]><link rel="stylesheet" type="text/css" href="css/ie.css" /><![endif]-->
+    <link rel="stylesheet" title="Zenburn" href="js/highlight/styles/zenburn.css">
+    <link rel="stylesheet" title="Zenburn" href="js/fancybox/jquery.fancybox-1.3.1.css">
+    <script type="text/javascript" src="js/jquery.1.4.2.min.js"></script>
+    <script type="text/javascript" src="js/fancybox/jquery.fancybox-1.3.1.pack.js"></script>
+    <script type="text/javascript" src="js/highlight/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.tabReplace = '    ';
+
+        hljs.initHighlightingOnLoad();
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <h1>Planning application structure</h1>
+            <div class="generic nineforty">
+                <p>
+                    <a href="images/tricks_frontend.png" class="popup-image"><img src="images/tricks_frontend_min.png" class="float-left" /></a>
+                    First step we need - planning our web-service. Best way for planing your application - using diagram drawing software like
+                    <a href="http://office.microsoft.com/en-us/visio/" target="_blank">Micro$oft Visio</a> (non-free),
+                    <a href="http://live.gnome.org/Dia" target="_blank">Dia</a> (free) or
+                    <a href="http://www.gliffy.com/" target="_blank">Giffy</a> (non-free). For this project i used Giffy online drawing tool.<br />
+                    <em>You can download <a href="/images/tricks_frontend.png" target="_blank">full-sized scheme</a> and
+                    <a href="images/tricks_frontend.gxml" target="_blank">diagram source</a> for detailed study.</em>
+                </p>
+                <p><em>It is assumed that you have already installed <a href="http://www.apache.org/" target="_blank">Apache</a> / <a href="http://php.net">PHP</a> / <a href="http://www.mysql.com/" target="_blank">MySQL</a> and
+                   have folder for our project in your server's root directory with downloaded project source ( read about setup project and checkout project source via SVN <a href="http://css-tricks.com/cakephp-project-events-manger/">here</a>  ).</em>
+                </p>
+            </div>
+            <h1>Overriding <em>AppModel</em> class</h1>
+            <div class="generic nineforty">
+                <p>We need a customizing cakePHP base classes for extending functionality. First class we need to change - <em>AppModel</em>. This class is parent
+                for all models in our project. Create file (or open exists file) in <em>PROJECT/app/app_model.php</em>
+                We need to create array for storing our validation sets ( by default cakePHP have one validation set per model )</p>
+<div style="position:relative">
+<pre>
+    <code class="php">
+    class AppModel extends Model {
+        var $validationSet = array();
+    }
+    </code>
+</pre></div>
+                <p>And next we need to create method for switching our validation sets:</p>
+<pre>
+    <code class="php">
+    class AppModel extends Model {
+        var $validationSet = array();
+
+        function setValidation( $setName ) {
+            $this->validate = isset( $this->validationSet[$setName] ) ? $this->validationSet[$setName] : null;
+        }
+    }
+    </code>
+</pre>
+    <p>Now overriding <em>AppModel::invalidate()</em> method for showing multiple errors for field.</p>
+<pre>
+    <code class="php">
+    class AppModel extends Model {
+        // ...
+        function invalidate( $field, $value = true ) {
+            if (!is_array($this->validationErrors)) {
+                $this->validationErrors = array();
+            }
+            if ( isset( $this->validationErrors[$field] ) && strlen( $this->validationErrors[$field] ) &&
+                 strpos( $this->validationErrors[$field], $value ) === false ) {
+                $this->validationErrors[$field] .= ', ' . $value;
+            } else {
+                $this->validationErrors[$field] = $value;
+            }
+        }
+        // ...
+    }
+    </code>
+</pre>
+        <p>And adding few methods for custom validation. In code below we explain how to use these methods.</p>
+<pre>
+    <code class="php">
+    class AppModel extends Model {
+        // ...
+
+        /**
+         * Checking for other field not empty
+         */
+        function otherFieldNotEmpty( $data, $field_to_check ) {
+            return ( !empty( $this->data[$this->name][$field_to_check] ) ) ? true : false;
+        }
+
+        /**
+         * Is this field value equal to another field value
+         */
+        function equalToField( $data, $field ) {
+            $filed_tmp = array_values( $data );
+            return $filed_tmp[0] == $this->data[$this->name][$field];
+        }
+
+        /**
+         * $data array is passed using the form field name as the key
+         * have to extract the value to make the function generic
+         */
+        function alphaNumericDashUnderscore( $data ) {
+            $value = array_values($data);
+            $value = $value[0];
+            return preg_match('|^[0-9a-zA-Z_-]*$|', $value);
+        }
+        // ...
+    }
+    </code>
+</pre>
+        <p>After all our changes full <em>AppModel</em> class should looks like:</p>
+<pre>
+    <code class="php">
+    class AppModel extends Model {
+        var $validationSet = array();
+
+        function __construct( $id = false, $table = null, $ds = null ) {
+            parent::__construct( $id, $table, $ds );
+            //$this->query( "set names 'utf8'" );
+        }
+
+        function setValidation( $setName ) {
+            $this->validate = isset( $this->validationSet[$setName] ) ? $this->validationSet[$setName] : null;
+        }
+
+    /**
+     * Set a field as invalid, optionally setting the name of validation
+     * rule (in case of multiple validation for field) that was broken
+     *
+     * @param string $field The name of the field to invalidate
+     * @param string $value Name of validation rule that was not met
+     * @access public
+     */
+        function invalidate($field, $value = true) {
+            if (!is_array($this->validationErrors)) {
+                $this->validationErrors = array();
+            }
+            if ( isset( $this->validationErrors[$field] ) && strlen( $this->validationErrors[$field] ) && strpos( $this->validationErrors[$field], $value ) === false ) {
+                $this->validationErrors[$field] .= ', ' . $value;
+            } else {
+                $this->validationErrors[$field] = $value;
+            }
+        }
+
+    /**
+     * Custom validation rules
+     *
+     */
+
+    /**
+     * Checking for other field not empty
+     */
+        function otherFieldNotEmpty( $data, $field_to_check ) {
+            return ( !empty( $this->data[$this->name][$field_to_check] ) ) ? true : false;
+        }
+
+    /**
+     * Is this field value equal to another field value?
+     */
+        function equalToField( $data, $field ) {
+            $filed_tmp = array_values( $data );
+            return $filed_tmp[0] == $this->data[$this->name][$field];
+        }
+
+    /**
+     * $data array is passed using the form field name as the key
+     * have to extract the value to make the function generic
+     */
+        function alphaNumericDashUnderscore( $data ) {
+            $value = array_values($data);
+            $value = $value[0];
+            return preg_match('|^[0-9a-zA-Z_-]*$|', $value);
+        }
+    }        
+    </code>
+</pre>
+
+            </div>
+            <h1>Overriding <em>AppController</em> class</h1>
+            <div class="generic nineforty">
+                <p><em>AppController</em> class is parent class for all controllers we using in our project. You need to create new file
+                    ( or open existing ) at <em>PROJECT/app/app_controller.php</em>.</p>
+                <p>Import <em>Sanitize</em> component for using in all controllers and define common list of components and helpers:</p>
+<pre>
+    <code class="php">
+    App::import( 'Core', 'Sanitize' );
+
+    class AppController extends Controller {
+        // Common helpers definition
+        var $helpers    = array( 'Html', 'Javascript', 'Ajax', 'Form', 'Text', 'Session' );
+        // Common components definition
+        var $components = array( 'Session', 'Cookie', 'RequestHandler' );
+        //...
+    }
+    </code>
+</pre>
+    <p>Further, we need to define a list of variables that will be used in all controllers:</p>
+                <pre>
+                    <code class="php">
+        // ...
+        // default user settings
+        var $user_info      = null;
+        var $user_id        = null;
+        var $user_role      = 'guest';
+
+        // default authentication URL
+        var $auth_url       = '/users/login';
+
+        // pre-defined access array (will be defined in controllers, that extends AppController)
+        var $access         = array();
+        // ...
+                    </code>
+                </pre>
+    <p>Override <em>beforeFilter</em> method for: loading user-data from session ( if user is logged in ) and hecking access ( based on access array ):</p>
+    <pre>
+        <code class="php">
+        function beforeFilter() {
+            // loading current user info
+            // this value should be write to session in UsersController->login or UsersController->profile
+            if ( $this->Session->check( "User" ) ) {
+                $this->user_info = $this->Session->read( "User" );
+                $this->user_role = $this->user_info['role'];
+                $this->user_id = $this->user_info['id'];
+            } else {
+                $this->user_info   = null;
+                $this->user_id     = null;
+                $this->user_role   = 'guest';
+            }
+
+            // setting user's info for views
+            $this->set( 'User', $this->user_info );
+
+            // checking access
+            if ( !$this->checkAccess( $this->action, $this->access ) ) {
+                $this->Session->write( 'before_login_url', $this->here );
+                $this->redirect( $this->auth_url );
+            }
+        }
+        </code>
+    </pre>
+    <p>Adding function for checking access (ACL - like), it based on <em>AppController::$access</em> array:</p>
+    <pre>
+        <code class="php">
+        function checkAccess( $action, $access = '' ) {
+            $result = true;
+            if ( is_array( $access ) && array_key_exists( $action, $access ) ) {
+                if ( array_key_exists( 'role', $access[$action] ) ) {
+                    if ( in_array( $this->user_role, $access[$action]['role'])) {
+                        $result =  false;
+                    }
+                } else {
+                    if ( !in_array( $this->user_role, $access[$action] ) ) {
+                         $result = false;
+                    }
+                }
+            }
+            return $result;
+        }
+        </code>
+    </pre>
+    <p>Finally, our <em>AppController</em> class should looks like:</p>
+    <pre>
+        <code class="php">
+    App::import( 'Core', 'Sanitize' );
+
+    class AppController extends Controller {
+    // Common helpers definition
+        var $helpers 		= array( 'Html', 'Javascript', 'Ajax', 'Form', 'Text', 'Session' );
+    // Common components definition
+        var $components     = array( 'Session', 'Cookie', 'RequestHandler' );
+
+    // default user settings
+        var $user_info      = null;
+        var $user_id        = null;
+        var $user_role      = 'guest';
+
+    // default authentication URL
+        var $auth_url       = '/users/login';
+
+    // pre-defined access array (will be defined in controllers, that extends AppController)
+        var $access         = array();
+
+    /**
+     * Override beforeFilter method
+     *  - Loading user-data from session ( if user is logged in )
+     *  - checking access ( based on access array )
+     * @return void
+     */
+        function beforeFilter() {
+            // loading current user info
+            // this value should be write to session in UsersController->login or UsersController->profile
+            if ( $this->Session->check( "User" ) ) {
+                $this->user_info = $this->Session->read( "User" );
+                $this->user_role = $this->user_info['role'];
+                $this->user_id = $this->user_info['id'];
+            } else {
+                $this->user_info   = null;
+                $this->user_id     = null;
+                $this->user_role   = 'guest';
+            }
+
+            // setting user's info for views
+            $this->set( 'User', $this->user_info );
+
+            // checking access
+            if ( !$this->checkAccess( $this->action, $this->access ) ) {
+                $this->Session->write( 'before_login_url', $this->here );
+                $this->redirect( $this->auth_url );
+            }
+        }
+
+    /**
+     * Check access function (ACL - like)
+     * based on $controller->access = array( 'method'=>array( 'role1', 'role2' ... 'roleN' ) )
+     *
+     * @param String $action
+     * @param Array $access
+     * @return Boolean
+     */
+        function checkAccess( $action, $access = '' ) {
+            $result = true;
+            if ( is_array( $access ) && array_key_exists( $action, $access ) ) {
+                if ( array_key_exists( 'role', $access[$action] ) ) {
+                    if ( in_array( $this->user_role, $access[$action]['role'])) {
+                        $result =  false;
+                    }
+                } else {
+                    if ( !in_array( $this->user_role, $access[$action] ) ) {
+                         $result = false;
+                    }
+                }
+            }
+            return $result;
+        }
+    }
+        </code>
+    </pre>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(function() {
+            $("a.popup-image").fancybox({'titlePosition':'inside'});
+        })
+    </script>
+</body>
+</html>
