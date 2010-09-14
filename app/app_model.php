@@ -42,12 +42,17 @@ class AppModel extends Model {
  * Custom validation rules
  *
  */
-    
+
+/**
+ * Checking for other field not empty
+ */
     function otherFieldNotEmpty( $data, $field_to_check ) {
         return ( !empty( $this->data[$this->name][$field_to_check] ) ) ? true : false;
     }
 
-
+/**
+ * Is this field value equal to another field value?
+ */
     function equalToField( $data, $field ) {
         $filed_tmp = array_values( $data );
         return $filed_tmp[0] == $this->data[$this->name][$field];
@@ -64,12 +69,12 @@ class AppModel extends Model {
     }
 
     function isValidEmail($email) {
-// First, we check that there's one @ symbol, and that the lengths are right
+		// First, we check that there's one @ symbol, and that the lengths are right
         if (!ereg("^[^@]{1,64}@[^@]{1,255}$", $email)) {
-// Email invalid because wrong number of characters in one section, or wrong number of @ symbols.
+			// Email invalid because wrong number of characters in one section, or wrong number of @ symbols.
             return false;
         }
-// Split it into sections to make life easier
+		// Split it into sections to make life easier
         $email_array = explode("@", $email);
         $local_array = explode(".", $email_array[0]);
         for ($i = 0; $i < sizeof($local_array); $i++) {
