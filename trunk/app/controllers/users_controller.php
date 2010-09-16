@@ -462,7 +462,7 @@ class UsersController extends AppController {
                         // saving new password
                         $this->User->save( array( 'id'=>$this->user_id, 'pass'=>md5( $this->data['User']['new_password'] ) ) );
                         // setting new user's info
-                        $thus->user_info = $this->User->findById( $this->user_id );
+                        $this->user_info = $this->User->findById( $this->user_id );
                         $this->Session->write( 'User', $this->user_info );
                     }
                 }
