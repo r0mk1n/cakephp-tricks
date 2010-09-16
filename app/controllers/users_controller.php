@@ -427,7 +427,7 @@ class UsersController extends AppController {
                     // get user data
                     $this->data = $this->User->findById( $this->user_id );
                     // save changed data to session
-                    $thus->user_info = $this->User->findById( $this->user_id );
+                    $this->user_info = $this->User->findById( $this->user_id );
                     $this->Session->write( 'User', $this->user_info );
 
 
